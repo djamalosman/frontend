@@ -8,6 +8,7 @@
                     <input type="checkbox" class="filterWorklocation" value="{{$item->nama}}"> <span class="text-small">{{$item->nama}}</span>
                     <span class="checkmark"></span>
                 </label>
+                <span class="number-item">{{$item->count}}</span>
             </li>
         @endforeach
     </ul>

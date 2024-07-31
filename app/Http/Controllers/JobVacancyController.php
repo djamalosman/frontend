@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\DB;
 
 class JobVacancyController extends Controller
 {
-    public function index()
+    public function JobList()
     {
         $data['title'] = 'Job Vacancy';
 
@@ -21,7 +21,23 @@ class JobVacancyController extends Controller
             )->get();
          // Get all courses
 
-       return view('jobvacancy.index', $data);
+       return view('jobvacancy.joblist', $data);
+
+    }
+    
+    public function JobGrid()
+    {
+        $data['title'] = 'Job Vacancy';
+
+        $dataCount = JobVacancyDetailModel::where('status', 1)->get();
+        $data['CountJob'] = $dataCount->count();
+        $data['filter'] = DB::table('m_employee_status')
+            ->select(
+                'm_employee_status.nama as employees_status'
+            )->get();
+        // Get all courses
+
+        return view('jobvacancy.jobgrid', $data);
 
     }
 
@@ -52,30 +68,28 @@ class JobVacancyController extends Controller
 
     public function previewFilter(Request $request)
     {
-        $filters = $request->all();
-        $filteredData = DB::table('m_employee_status');
 
-        if (!empty($filters['skill'])) {
-            $filteredData->where('m_employee_status.nama', 'LIKE', '%' . $filters['skill'] . '%');
-        }
 
-        if (!empty($filters['availability'])) {
-            $filteredData->whereIn('m_employee_status.nama', $filters['availability']);
-        }
-
-        $filteredData = $filteredData->get();
+        $filteredData = DB::table('m_employee_status')
+            ->Join('djv_job_vacancy_detail', 'djv_job_vacancy_detail.id_m_employee_status', '=', 'm_employee_status.id')
+            ->select('m_employee_status.nama')
+            ->selectRaw('count(*) as count')
+            ->groupBy('m_employee_status.nama')
+            ->get();
 
         return view('partials.filter_preview', ['filteredData' => $filteredData]);
     }
 
-    public function previewFilterWorkLocation(Request $request)
+    public function previewFilterPlacement(Request $request)
     {
-        $filters = $request->all();
-        $filter_Data_work_location = DB::table('m_work_location');
 
-        $filter_Data_work_location = $filter_Data_work_location->get();
-
-        return view('partials.filter_work_location_preview', ['filter_data_work_location' => $filter_Data_work_location]);
+        $filter_Data_work_location = DB::table('m_work_location')
+            ->Join('djv_job_vacancy_detail', 'djv_job_vacancy_detail.id_m_work_location', '=', 'm_work_location.id')
+            ->select('m_work_location.nama')
+            ->selectRaw('count(*) as count')
+            ->groupBy('m_work_location.nama')
+            ->get();
+        return view('partials.filter_placement_preview', ['filter_data_work_location' => $filter_Data_work_location]);
     }
 
     public function previewFilterExperienceLevel(Request $request)
@@ -99,8 +113,25 @@ class JobVacancyController extends Controller
         return view('partials.filter_education_preview', ['filter_Data_education' => $filter_Data_education]);
     }
 
+    public function previewFilterSalarayRange(Request $request)
+    {
+        $filters = $request->all();
+        $filtersalaray = DB::table('m_salary')->get();
 
-    public function getContentJob(Request $request)
+        return response()->json($filtersalaray);
+    }
+
+
+    public function priviewEmployeeStatusTop(Request $request)
+    {
+        $filtemployeeStatus = DB::table('m_employee_status')->get();
+
+        return response()->json($filtemployeeStatus);
+    }
+
+    
+
+    public function getContentJobList(Request $request)
     {
         $filters = $request->all();
         //dd($filters);
@@ -123,32 +154,53 @@ class JobVacancyController extends Controller
                 'm_experience_level.nama as name_experience_level'
             );
         $whereData=$query->where('djv_job_vacancy_detail.status',1);
-        // Filter skill
-        if (!empty($filters['skill']) && is_array($filters['skill'])) {
-            $whereData->whereIn('m_experience_level.nama', $filters['skill']);
-        } elseif (!empty($filters['skill']) && is_string($filters['skill'])) {
-            $whereData->where('m_experience_level.nama', 'LIKE', '%' . $filters['skill'] . '%');
+
+       // dd($filters);
+        // filter job title
+        if (!empty($filters['jobtitle']) && is_array($filters['jobtitle'])) {
+            $whereData->whereIn('djv_job_vacancy_detail.job_title', $filters['jobtitle']);
+        } elseif (!empty($filters['jobtitle']) && is_string($filters['jobtitle'])) {
+            $whereData->where('djv_job_vacancy_detail.job_title', 'LIKE', '%' . $filters['jobtitle'] . '%');
         }
 
+        // filter lokasi
+        if (!empty($filters['location']) && is_array($filters['location'])) {
+            $whereData->whereIn('djv_job_vacancy_detail.lokasi', $filters['location']);
+        } elseif (!empty($filters['location']) && is_string($filters['location'])) {
+            $whereData->where('djv_job_vacancy_detail.lokasi', 'LIKE', '%' . $filters['location'] . '%');
+        }
         // Filter Job type
-        if (!empty($filters['jobtype']) && is_array($filters['jobtype'])) {
-            $whereData->whereIn('m_sector.nama', $filters['jobtype']);
-        } elseif (!empty($filters['jobtype']) && is_string($filters['jobtype'])) {
-            $whereData->where('m_sector.nama', 'LIKE', '%' . $filters['jobtype'] . '%');
+        if (!empty($filters['employeeStatusSelect']) && is_array($filters['employeeStatusSelect'])) {
+            $whereData->whereIn('m_employee_status.nama', $filters['employeeStatusSelect']);
+        } elseif (!empty($filters['employeeStatusSelect']) && is_string($filters['employeeStatusSelect'])) {
+            $whereData->where('m_employee_status.nama', 'LIKE', '%' . $filters['employeeStatusSelect'] . '%');
+        }
+
+        if (!empty($filters['employeeStatus']) && is_array($filters['employeeStatus'])) {
+            $whereData->whereIn('m_employee_status.nama', $filters['employeeStatus']);
+        } elseif (!empty($filters['employeeStatus']) && is_string($filters['employeeStatus'])) {
+            $whereData->where('m_employee_status.nama', 'LIKE', '%' . $filters['employeeStatus'] . '%');
         }
 
         // Filter salary range
-        if (!empty($filters['salary']) && is_array($filters['salary'])) {
-            $whereData->whereIn('m_salary.nama', $filters['salary']);
-        } elseif (!empty($filters['salary']) && is_string($filters['salary'])) {
-            $whereData->where('m_salary.nama', 'LIKE', '%' . $filters['salary'] . '%');
+        if (!empty($filters['salaryRange']) && is_array($filters['salaryRange'])) {
+            $whereData->whereIn('m_salary.nama', $filters['salaryRange']);
+        } elseif (!empty($filters['salaryRange']) && is_string($filters['salaryRange'])) {
+            $whereData->where('m_salary.nama', 'LIKE', '%' . $filters['salaryRange'] . '%');
+        }
+
+        // Filter salary range Top
+        if (!empty($filters['salaryRangeTop']) && is_array($filters['salaryRangeTop'])) {
+            $whereData->whereIn('m_salary.nama', $filters['salaryRangeTop']);
+        } elseif (!empty($filters['salaryRangeTop']) && is_string($filters['salaryRangeTop'])) {
+            $whereData->where('m_salary.nama', 'LIKE', '%' . $filters['salaryRangeTop'] . '%');
         }
 
         // Filter worklocation
-        if (!empty($filters['worklocation']) && is_array($filters['worklocation'])) {
-            $whereData->whereIn('m_work_location.nama', $filters['worklocation']);
-        } elseif (!empty($filters['worklocation']) && is_string($filters['worklocation'])) {
-            $whereData->where('m_work_location.nama', 'LIKE', '%' . $filters['worklocation'] . '%');
+        if (!empty($filters['placement']) && is_array($filters['placement'])) {
+            $whereData->whereIn('m_work_location.nama', $filters['placement']);
+        } elseif (!empty($filters['placement']) && is_string($filters['placement'])) {
+            $whereData->where('m_work_location.nama', 'LIKE', '%' . $filters['placement'] . '%');
         }
 
         // Filter experience level
@@ -158,19 +210,8 @@ class JobVacancyController extends Controller
             $whereData->where('m_experience_level.nama', 'LIKE', '%' . $filters['experiencelevel'] . '%');
         }
 
-        // Filter Education
-        if (!empty($filters['education']) && is_array($filters['education'])) {
-            $whereData->whereIn('m_education.nama', $filters['education']);
-        } elseif (!empty($filters['education']) && is_string($filters['education'])) {
-            $whereData->where('m_education.nama', 'LIKE', '%' . $filters['education'] . '%');
-        }
 
-        // Filter availability
-        if (!empty($filters['availability']) && is_array($filters['availability'])) {
-            $whereData->whereIn('m_employee_status.nama', $filters['availability']);
-        } elseif (!empty($filters['availability']) && is_string($filters['availability'])) {
-            $whereData->where('m_employee_status.nama', 'LIKE', '%' . $filters['availability'] . '%');
-        }
+
         // Apply filters and sorting
         if (!empty($filters['sortBy'])) {
             switch ($filters['sortBy']) {
@@ -208,13 +249,137 @@ class JobVacancyController extends Controller
         ])->render();
 
         return response()->json([
-            'content' => view('partials.content_job', ['data' => $data])->render(),
+            'content' => view('partials.content_job_list', ['data' => $data])->render(),
             'pagination' => view('partials.pagination', ['data' => $data])->render(),
             'showing' => $showing,
             'sort_and_view' => $sortAndView
         ]);
     }
 
+    public function getContentJobGrid(Request $request)
+    {
+        $filters = $request->all();
+        //dd($filters);
+        $query = DB::table('djv_job_vacancy_detail')
+            ->leftJoin('m_employee_status', 'djv_job_vacancy_detail.id_m_employee_status', '=', 'm_employee_status.id')
+            ->leftJoin('m_work_location', 'm_work_location.id', '=', 'djv_job_vacancy_detail.id_m_work_location')
+            ->leftJoin('m_salary_date_month', 'm_salary_date_month.id', '=', 'djv_job_vacancy_detail.id_m_salaray_date_mont')
+            ->leftJoin('m_salary', 'm_salary.id', '=', 'djv_job_vacancy_detail.id_m_salaray')
+            ->leftJoin('m_sector', 'm_sector.id', '=', 'djv_job_vacancy_detail.id_m_sector')
+            ->leftJoin('m_education', 'm_education.id', '=', 'djv_job_vacancy_detail.id_m_education')
+            ->leftJoin('m_experience_level', 'm_experience_level.id', '=', 'djv_job_vacancy_detail.id_m_experience_level')
+            ->select(
+                'djv_job_vacancy_detail.*',
+                'm_employee_status.nama as nama_status',
+                'm_work_location.nama as work_location',
+                'm_salary_date_month.nama as fee',
+                'm_salary.nama as salary',
+                'm_sector.nama as sector',
+                'm_education.nama as education',
+                'm_experience_level.nama as name_experience_level'
+            );
+        $whereData=$query->where('djv_job_vacancy_detail.status',1);
+
+        // dd($filters);
+        // filter job title
+        if (!empty($filters['jobtitle']) && is_array($filters['jobtitle'])) {
+            $whereData->whereIn('djv_job_vacancy_detail.job_title', $filters['jobtitle']);
+        } elseif (!empty($filters['jobtitle']) && is_string($filters['jobtitle'])) {
+            $whereData->where('djv_job_vacancy_detail.job_title', 'LIKE', '%' . $filters['jobtitle'] . '%');
+        }
+
+        // filter lokasi
+        if (!empty($filters['location']) && is_array($filters['location'])) {
+            $whereData->whereIn('djv_job_vacancy_detail.lokasi', $filters['location']);
+        } elseif (!empty($filters['location']) && is_string($filters['location'])) {
+            $whereData->where('djv_job_vacancy_detail.lokasi', 'LIKE', '%' . $filters['location'] . '%');
+        }
+        // Filter Job type
+        if (!empty($filters['employeeStatusSelect']) && is_array($filters['employeeStatusSelect'])) {
+            $whereData->whereIn('m_employee_status.nama', $filters['employeeStatusSelect']);
+        } elseif (!empty($filters['employeeStatusSelect']) && is_string($filters['employeeStatusSelect'])) {
+            $whereData->where('m_employee_status.nama', 'LIKE', '%' . $filters['employeeStatusSelect'] . '%');
+        }
+
+        if (!empty($filters['employeeStatus']) && is_array($filters['employeeStatus'])) {
+            $whereData->whereIn('m_employee_status.nama', $filters['employeeStatus']);
+        } elseif (!empty($filters['employeeStatus']) && is_string($filters['employeeStatus'])) {
+            $whereData->where('m_employee_status.nama', 'LIKE', '%' . $filters['employeeStatus'] . '%');
+        }
+
+        // Filter salary range
+        if (!empty($filters['salaryRange']) && is_array($filters['salaryRange'])) {
+            $whereData->whereIn('m_salary.nama', $filters['salaryRange']);
+        } elseif (!empty($filters['salaryRange']) && is_string($filters['salaryRange'])) {
+            $whereData->where('m_salary.nama', 'LIKE', '%' . $filters['salaryRange'] . '%');
+        }
+
+        // Filter salary range Top
+        if (!empty($filters['salaryRangeTop']) && is_array($filters['salaryRangeTop'])) {
+            $whereData->whereIn('m_salary.nama', $filters['salaryRangeTop']);
+        } elseif (!empty($filters['salaryRangeTop']) && is_string($filters['salaryRangeTop'])) {
+            $whereData->where('m_salary.nama', 'LIKE', '%' . $filters['salaryRangeTop'] . '%');
+        }
+
+        // Filter worklocation
+        if (!empty($filters['placement']) && is_array($filters['placement'])) {
+            $whereData->whereIn('m_work_location.nama', $filters['placement']);
+        } elseif (!empty($filters['placement']) && is_string($filters['placement'])) {
+            $whereData->where('m_work_location.nama', 'LIKE', '%' . $filters['placement'] . '%');
+        }
+
+        // Filter experience level
+        if (!empty($filters['experiencelevel']) && is_array($filters['experiencelevel'])) {
+            $whereData->whereIn('m_experience_level.nama', $filters['experiencelevel']);
+        } elseif (!empty($filters['experiencelevel']) && is_string($filters['experiencelevel'])) {
+            $whereData->where('m_experience_level.nama', 'LIKE', '%' . $filters['experiencelevel'] . '%');
+        }
+
+
+
+        // Apply filters and sorting
+        if (!empty($filters['sortBy'])) {
+            switch ($filters['sortBy']) {
+                case 'newest':
+                    $whereData->orderBy('djv_job_vacancy_detail.created_at', 'desc');
+                    break;
+                case 'oldest':
+                    $whereData->orderBy('djv_job_vacancy_detail.created_at', 'asc');
+                    break;
+                //case 'rating':
+                //    $query->orderBy('djv_job_vacancy_detail.rating', 'desc'); // Assuming there's a rating column
+                //    break;
+            }
+        } else {
+            $whereData->orderBy('djv_job_vacancy_detail.created_at', 'desc'); // Default sort
+        }
+
+        $perPage = 3;
+        $page = $request->input('page', 1);
+        $data = $whereData->paginate($perPage, ['*'], 'page', $page);
+
+        // Calculate the range of the items shown
+        $from = ($data->currentPage() - 1) * $data->perPage() + 1;
+        $to = min($data->currentPage() * $data->perPage(), $data->total());
+
+        // Render the 'showing' view with the calculated range
+        $showing = view('partials.showing', [
+            'from' => $from,
+            'to' => $to,
+            'total' => $data->total()
+        ])->render();
+
+        $sortAndView = view('partials.sort_and_view', [
+            'sortBy' => $filters['sortBy'] ?? 'Newest Post'
+        ])->render();
+
+        return response()->json([
+            'content' => view('partials.content_job_grid', ['data' => $data])->render(),
+            'pagination' => view('partials.pagination', ['data' => $data])->render(),
+            'showing' => $showing,
+            'sort_and_view' => $sortAndView
+        ]);
+    }
 
 
 

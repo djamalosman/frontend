@@ -6,13 +6,64 @@
 
     <section class="section-box-2">
         <div class="box-head-single none-bg">
-            <div class="row">
-                <div class="col-lg-2"></div>
-                <div class="col-lg-8 text-center">
-                    <h1 class="section-title-large mb-30 wow animate__animated animate__fadeInUp">There Are {{$CountJob}} Jobs<br />Here For you!</h1>
-                    <h5 class="mb-30 text-muted wow animate__animated animate__fadeInUp">Discover your next career move, freelance gig, orinternship</h5>
+            <div class="container">
+                <h4>There Are {{$CountJob}} Jobs<br />Here For you!</h4>
+                <div class="row mt-15 mb-40">
+                    <div class="col-lg-7 col-md-9">
+                            <span class="text-mutted">Discover your next career move, freelance gig, or
+                                internship</span>
+                    </div>
+                    <div class="col-lg-5 col-md-3 text-lg-end text-start">
+                        <ul class="breadcrumbs mt-sm-15">
+                            <li><a href="#">Recent Jobs</a></li>
+                            <li>Jobs listing</li>
+                        </ul>
+                    </div>
                 </div>
-                <hr>
+                <div class="box-shadow-bdrd-15 box-filters">
+                    <div class="row">
+                        <div class="col-lg-5">
+                            <div class="box-search-job">
+                                <form class="form-search-job">
+                                    <input type="text" id="filterJobtitle"  class="input-search-job" placeholder="Search  Job title" />
+                                </form>
+                            </div>
+                        </div>
+                        <div class="col-lg-7">
+                            <div class="d-flex job-fillter">
+                                <div class="d-block d-lg-flex">
+                                    <div class="dropdown">
+                                    <div class="form-group select-style select-style-icon">
+                                        <select id="employeeStatusSelect" class="form-control form-icons select-active">
+                                            <!-- Options will be loaded here via AJAX -->
+                                        </select>
+                                        <i class="fi-rr-briefcase"></i>
+                                    </div>
+                                    </div>
+                                    <div class="dropdown">
+                                    <div class="form-group select-style select-style-icon">
+                                        <select id="provinsiSelect" class="form-control form-icons select-active">
+                                            <!-- Options will be loaded here via AJAX -->
+                                        </select>
+                                        <i class="fi-rr-marker"></i>
+                                    </div>
+                                    </div>
+                                    <div class="dropdown">
+                                    <div class="form-group select-style select-style-icon">
+                                        <select id="salaryRangeSelectTop" class="form-control form-icons select-active">
+                                             <!-- Options will be loaded here via AJAX -->
+                                        </select>
+                                        <i class="fi-rr-dollar"></i>
+                                    </div>
+                                    </div>
+                                </div>
+                                <div class="box-button-find">
+                                    <button  id="applyFilterBtn"  class="btn btn-default float-right">Find Now</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -39,11 +90,11 @@
                     <div class="content-page">
                         <div class="box-filters-job mt-15 mb-10">
                             <div class="row">
-                                <div class="col-lg-7" >
+                                <div class="col-lg-5" >
                                     <div class="showing"></div>
 
                                 </div>
-                                <div class="col-lg-5 text-lg-end mt-sm-15">
+                                <div class="col-lg-7 text-lg-end mt-sm-15">
                                     <div class="display-flex2">
                                         <div class="dropdown dropdown-sort">
                                             <button class="btn dropdown-toggle" type="button" id="dropdownSort" data-bs-toggle="dropdown" aria-expanded="false" data-bs-display="static">
@@ -54,6 +105,10 @@
                                                 <li><a class="dropdown-item" href="#" data-sort="oldest">Oldest Post</a></li>
                                                 <li><a class="dropdown-item" href="#" data-sort="rating">Rating Post</a></li>
                                             </ul>
+                                        </div>
+                                        <div class="box-view-type">
+                                            <a href="{{route('job-list')}}" class="view-type"><img src="assets/imgs/theme/icons/icon-grid.svg" alt="jobhub" /></a>
+                                            <a href="{{route('job-grid')}}" class="view-type"><img src="assets/imgs/theme/icons/icon-list.svg" alt="jobhub" /></a>
                                         </div>
                                     </div>
                                 </div>
@@ -72,7 +127,6 @@
                             </ul>
                         </div>
                         <!-- End pagination -->
-
                     </div>
                 </div>
                 <!-- End page content -->
@@ -83,44 +137,22 @@
                         <h5 class="sidebar-title">Filters</h5>
                         <div class="sidebar-filters">
                             <div class="filter-block mb-30">
-                                <h5 class="medium-heading mb-15">Skill</h5>
+                                <h5 class="medium-heading mb-15">Location</h5>
                                 <div class="form-group">
-
-                                    <input type="text" id="filterSkill" class="form-control form-icons" placeholder="Search skill" />
+                                    <input type="text" class="form-control form-icons"  id="filterLocation"  placeholder="Location" />
+                                    <i class="fi-rr-marker"></i>
                                 </div>
                             </div>
-                            <h5 class="sidebar-title"></h5>
-
                             <div class="filter-block mb-30">
-                                <h5 class="medium-heading mb-15">Availability</h5>
+                                <h5 class="medium-heading mb-15">Employment Status</h5>
                                 <div class="form-group">
                                     <ul class="list-checkbox">
-                                        <div id="filterPreview">
+                                        <div id="filterEmployeeStatus">
                                             <!-- Pratinjau filter akan ditampilkan di sini -->
                                         </div>
-
                                     </ul>
                                 </div>
                             </div>
-                            <div class="filter-block mb-30">
-                                <h5 class="medium-heading mb-15">Work Location</h5>
-                                <div class="form-group">
-                                    <ul class="list-checkbox">
-                                        <div id="filterworklocation">
-                                            <!-- Pratinjau filter akan ditampilkan di sini -->
-                                        </div>
-
-                                    </ul>
-                                </div>
-                            </div>
-                            <h5 class="sidebar-title"></h5>
-                            <div class="filter-block mb-30">
-                                <h5 class="medium-heading mb-15">Job Type</h5>
-                                <div class="form-group">
-                                    <input type="text" id="filterJobtype" class="form-control form-icons" placeholder="Search job type" />
-                                </div>
-                            </div>
-                            <h5 class="sidebar-title"></h5>
 
                             <div class="filter-block mb-30">
                                 <h5 class="medium-heading mb-15">Experience Level</h5>
@@ -133,30 +165,28 @@
                                     </ul>
                                 </div>
                             </div>
-                            <h5 class="sidebar-title"></h5>
                             <div class="filter-block mb-30">
-                                <h5 class="medium-heading mb-15">Education</h5>
+                                <h5 class="medium-heading mb-15">Placement</h5>
                                 <div class="form-group">
                                     <ul class="list-checkbox">
-                                        <div id="filtereducation">
+                                        <div id="filterPlacement">
                                             <!-- Pratinjau filter akan ditampilkan di sini -->
                                         </div>
 
                                     </ul>
                                 </div>
                             </div>
-
-                            <h5 class="sidebar-title"></h5>
                             <div class="filter-block mb-30">
                                 <h5 class="medium-heading mb-15">Salary Range</h5>
-                                <div class="form-group">
-                                    <input type="text" id="filterSalary" class="form-control form-icons" placeholder="Search salary range" />
+                                <div class="form-group select-style select-style-icon">
+                                    <select id="salaryRangeSelect" class="form-control form-icons select-active">
+                                        <!-- Options will be loaded here via AJAX  -->
+                                    </select>
+                                    <i class="fi-rr-dollar"></i>
                                 </div>
                             </div>
-                            <h5 class="sidebar-title"></h5>
-
                             <div class="buttons-filter">
-                                <button id="applyFilterBtn" class="btn btn-default">Apply filter</button>
+                                <button id="applyFilterBtnBottom" class="btn btn-default">Apply filter</button>
                                 <button id="resetFilterBtn" class="btn">Reset filter</button>
                             </div>
                         </div>
@@ -191,7 +221,7 @@
     <script>
 
         document.addEventListener('DOMContentLoaded', function() {
-            const input = document.getElementById('filterSalary');
+            const input = document.getElementById('filterLocation');
 
             // Check if input element exists
             if (input) {
@@ -219,7 +249,7 @@
                     }
                 });
             } else {
-                console.error('Element with id "filterSalary" not found');
+                console.error('Element with id "filterLocation" not found');
             }
         });
 
@@ -246,15 +276,21 @@
         $(document).ready(function() {
 
             console.log('Document ready'); // Debugging line
-            previewFilter();
-            filterWorkLocation();
+
+
+            PreviewemployeeStatus();
+            PriviewfilterPlacement();
             filterExperienceLevel();
-            filterEducation();
+            loadSalaryRanges();
+            loadEmployeeStatusTop();
+            loadProvinsisTop();
+            loadSalaryRangesTop();
+            //filterEducation();
             let currentSort = 'newest'; // Default sorting
 
             function loadContent(page = 1, filters = {}, sortBy = currentSort) {
                 $.ajax({
-                    url: '/get-content-job',
+                    url: '/get-content-job-list',
                     method: 'GET',
                     data: {
                         page: page,
@@ -284,21 +320,22 @@
                 $('#currentSort').text($(this).text()); // Update button text with selected sort
                 console.log('Sort by selected:', currentSort); // Debugging line
                 const filters = {
-                    skill: $('#filterSkill').val(),
-                    jobtype: $('#filterJobtype').val(),
-                    salary: $('#filterSalary').val(),
-                    worklocation: $('.filterWorklocation:checked').map(function() {
+                   // jobtype: $('#filterJobtype').val(),
+                    location: $('#filterLocation').val(),
+                    jobtitle: $('#filterJobtitle').val(),
+                     placement: $('.filterPlacement:checked').map(function() {
                         return $(this).val();
                     }).get(),
-                    availability: $('.filterAvailability:checked').map(function() {
+                    employestatus: $('.filterEmployeeStatus:checked').map(function() {
                         return $(this).val();
                     }).get(),
                     experiencelevel: $('.filterExperiencelevel:checked').map(function() {
                         return $(this).val();
                     }).get(),
-                    education: $('.filterEducation:checked').map(function() {
-                        return $(this).val();
-                    }).get(),
+                    salaryRange: $('#salaryRangeSelect').val(),
+                    employeeStatusSelect: $('#employeeStatusSelect').val(),
+                    provinsi: $('#provinsiSelect').val(),
+                    salaryRangeTop: $('#salaryRangeSelectTop').val(),
                 };
                 loadContent(1, filters, currentSort); // Fetch content with new sort
             });
@@ -308,21 +345,22 @@
                 const page = $(this).data('page');
                 console.log('Pager number clicked, page:', page); // Debugging line
                 const filters = {
-                    skill: $('#filterSkill').val(),
-                    jobtype: $('#filterJobtype').val(),
-                    salary: $('#filterSalary').val(),
-                    worklocation: $('.filterWorklocation:checked').map(function() {
+                    //jobtype: $('#filterJobtype').val(),
+                    location: $('#filterLocation').val(),
+                    jobtitle: $('#filterJobtitle').val(),
+                    placement: $('.filterPlacement:checked').map(function() {
                         return $(this).val();
                     }).get(),
-                    availability: $('.filterAvailability:checked').map(function() {
+                    employestatus: $('.filterEmployeeStatus:checked').map(function() {
                         return $(this).val();
                     }).get(),
                     experiencelevel: $('.filterExperiencelevel:checked').map(function() {
                         return $(this).val();
                     }).get(),
-                    education: $('.filterEducation:checked').map(function() {
-                        return $(this).val();
-                    }).get(),
+                    salaryRange: $('#salaryRangeSelect').val(),
+                    employeeStatusSelect: $('#employeeStatusSelect').val(),
+                    provinsi: $('#provinsiSelect').val(),
+                    salaryRangeTop: $('#salaryRangeSelectTop').val(),
                 };
                 loadContent(page, filters, currentSort); // Fetch content with current sort
             });
@@ -333,21 +371,22 @@
                 console.log('Pager prev clicked, page:', page); // Debugging line
                 if (page) {
                     const filters = {
-                        skill: $('#filterSkill').val(),
-                        jobtype: $('#filterJobtype').val(),
-                        salary: $('#filterSalary').val(),
-                        worklocation: $('.filterWorklocation:checked').map(function() {
+                       // jobtype: $('#filterJobtype').val(),
+                        location: $('#filterLocation').val(),
+                        jobtitle: $('#filterJobtitle').val(),
+                        placement: $('.filterPlacement:checked').map(function() {
                             return $(this).val();
                         }).get(),
-                        availability: $('.filterAvailability:checked').map(function() {
+                        employestatus: $('.filterEmployeeStatus:checked').map(function() {
                             return $(this).val();
                         }).get(),
                         experiencelevel: $('.filterExperiencelevel:checked').map(function() {
                             return $(this).val();
                         }).get(),
-                        education: $('.filterEducation:checked').map(function() {
-                            return $(this).val();
-                        }).get(),
+                        salaryRange: $('#salaryRangeSelect').val(),
+                        employeeStatusSelect: $('#employeeStatusSelect').val(),
+                        provinsi: $('#provinsiSelect').val(),
+                        salaryRangeTop: $('#salaryRangeSelectTop').val(),
                     };
                     loadContent(page, filters, currentSort); // Fetch content with current sort
                 }
@@ -359,21 +398,22 @@
                 console.log('Pager next clicked, page:', page); // Debugging line
                 if (page) {
                     const filters = {
-                        skill: $('#filterSkill').val(),
-                        jobtype: $('#filterJobtype').val(),
-                        salary: $('#filterSalary').val(),
-                        worklocation: $('.filterWorklocation:checked').map(function() {
+                        //jobtype: $('#filterJobtype').val(),
+                        location: $('#filterLocation').val(),
+                        jobtitle: $('#filterJobtitle').val(),
+                        placement: $('.filterPlacement:checked').map(function() {
                             return $(this).val();
                         }).get(),
-                        availability: $('.filterAvailability:checked').map(function() {
+                        employestatus: $('.filterEmployeeStatus:checked').map(function() {
                             return $(this).val();
                         }).get(),
                         experiencelevel: $('.filterExperiencelevel:checked').map(function() {
                             return $(this).val();
                         }).get(),
-                        education: $('.filterEducation:checked').map(function() {
-                            return $(this).val();
-                        }).get(),
+                        salaryRange: $('#salaryRangeSelect').val(),
+                        employeeStatusSelect: $('#employeeStatusSelect').val(),
+                        provinsi: $('#provinsiSelect').val(),
+                        salaryRangeTop: $('#salaryRangeSelectTop').val(),
                     };
                     loadContent(page, filters, currentSort); // Fetch content with current sort
                 }
@@ -381,46 +421,127 @@
 
             $('#applyFilterBtn').on('click', function() {
                 const filters = {
-                    skill: $('#filterSkill').val(),
-                    jobtype: $('#filterJobtype').val(),
-                    salary: $('#filterSalary').val(),
-                    worklocation: $('.filterWorklocation:checked').map(function() {
+                    //jobtype: $('#filterJobtype').val(),
+                    location: $('#filterLocation').val(),
+                    jobtitle: $('#filterJobtitle').val(),
+                    placement: $('.filterPlacement:checked').map(function() {
                         return $(this).val();
                     }).get(),
-                    availability: $('.filterAvailability:checked').map(function() {
+                    employestatus: $('.filterEmployeeStatus:checked').map(function() {
                         return $(this).val();
                     }).get(),
                     experiencelevel: $('.filterExperiencelevel:checked').map(function() {
                         return $(this).val();
                     }).get(),
-                    education: $('.filterEducation:checked').map(function() {
-                        return $(this).val();
-                    }).get(),
+                    salaryRange: $('#salaryRangeSelect').val(),
+                    employeeStatusSelect: $('#employeeStatusSelect').val(),
+                    provinsi: $('#provinsiSelect').val(),
+                    salaryRangeTop: $('#salaryRangeSelectTop').val(),
                 };
                 console.log('Apply filter button clicked'); // Debugging line
                 loadContent(1, filters, currentSort); // Fetch content with filters and current sort
             });
-
+            $('#applyFilterBtnBottom').on('click', function() {
+                const filters = {
+                    //jobtype: $('#filterJobtype').val(),
+                    location: $('#filterLocation').val(),
+                    jobtitle: $('#filterJobtitle').val(),
+                    placement: $('.filterPlacement:checked').map(function() {
+                        return $(this).val();
+                    }).get(),
+                    employestatus: $('.filterEmployeeStatus:checked').map(function() {
+                        return $(this).val();
+                    }).get(),
+                    experiencelevel: $('.filterExperiencelevel:checked').map(function() {
+                        return $(this).val();
+                    }).get(),
+                    salaryRange: $('#salaryRangeSelect').val(),
+                    employeeStatusSelect: $('#employeeStatusSelect').val(),
+                    provinsi: $('#provinsiSelect').val(),
+                    salaryRangeTop: $('#salaryRangeSelectTop').val(),
+                };
+                console.log('Apply filter button clicked'); // Debugging line
+                loadContent(1, filters, currentSort); // Fetch content with filters and current sort
+            });
             $('#resetFilterBtn').on('click', function() {
-                $('#filterSkill').val('');
-                $('#filterJobtype').val('');
-                $('#filterSalary').val('');
-                $('#filterworklocation').val('');
+               // $('#filterJobtype').val('');
+                $('#filterLocation').val('');
+                $('#filterJobtitle').val('');
+                $('#salaryRangeSelect').val('');
+                $('#salaryRangeSelectTop').val('');
+                $('#employeeStatusSelect').val('');
+                $('#provinsiSelect').val('');
                 $('#filterexperiencelevel').val('');
-                $('#filtereducation').val('');
-                $('.filterAvailability').prop('checked', false);
-                $('.filterworklocation').prop('checked', false);
+                $('.filterEmployeeStatus').prop('checked', false);
+                $('.filterPlacement').prop('checked', false);
                 $('.filterexperiencelevel').prop('checked', false);
-                $('.filtereducation').prop('checked', false);
                 console.log('Reset filter button clicked'); // Debugging line
                 loadContent(1, {}, currentSort); // Fetch content without filters and current sort
             });
         });
 
-        function previewFilter() {
+        function loadSalaryRanges() {
+            const url = 'load-filter-salaray-range'; // Ganti dengan URL endpoint Anda
+
+            $.ajax({
+                url: url,
+                type: 'GET',
+                dataType: 'json',
+                success: function(data) {
+                    const $selectElement = $('#salaryRangeSelect');
+
+                    // Clear existing options
+                    $selectElement.empty();
+
+                    // Add a default option
+                    $selectElement.append('<option value="">Select Salary Range</option>');
+
+                    // Loop through the data and create new option elements
+                    $.each(data, function(index, item) {
+                        $selectElement.append(
+                            $('<option></option>').val(item.nama).text(item.nama)
+                        );
+                    });
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error fetching salary ranges:', error);
+                }
+            });
+        }
+
+        function loadSalaryRangesTop() {
+            const url = 'load-filter-salaray-range'; // Ganti dengan URL endpoint Anda
+
+            $.ajax({
+                url: url,
+                type: 'GET',
+                dataType: 'json',
+                success: function(data) {
+                    const $selectElement = $('#salaryRangeSelectTop');
+
+                    // Clear existing options
+                    $selectElement.empty();
+
+                    // Add a default option
+                    $selectElement.append('<option value="">Select Salary Range</option>');
+
+                    // Loop through the data and create new option elements
+                    $.each(data, function(index, item) {
+                        $selectElement.append(
+                            $('<option></option>').val(item.nama).text(item.nama)
+                        );
+                    });
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error fetching salary ranges:', error);
+                }
+            });
+        }
+
+
+        function PreviewemployeeStatus() {
             const filters = {
-                skill: $('#filterSkill').val(),
-                availability: $('.filterAvailability:checked').map(function() {
+                employeeStatus: $('.filterEmployeeStatus:checked').map(function() {
                     return $(this).val();
                 }).get()
             };
@@ -429,7 +550,7 @@
                 method: 'GET',
                 data: filters,
                 success: function(response) {
-                    $('#filterPreview').html(response);
+                    $('#filterEmployeeStatus').html(response);
                 },
                 error: function(xhr, status, error) {
                     console.error('Error fetching filter preview:', error);
@@ -437,19 +558,19 @@
             });
         }
 
-        function filterWorkLocation() {
+        function PriviewfilterPlacement() {
             const filters = {
-                worklocation: $('.filterWorklocation:checked').map(function() {
+                placement: $('.filterPlacement:checked').map(function() {
                     return $(this).val();
                 }).get(),
 
             };
             $.ajax({
-                url: '/filter-work-location-job', // Endpoint untuk pratinjau filter
+                url: '/filter-placement', // Endpoint untuk pratinjau filter
                 method: 'GET',
                 data: filters,
                 success: function(response) {
-                    $('#filterworklocation').html(response);
+                    $('#filterPlacement').html(response);
                 },
                 error: function(xhr, status, error) {
                     console.error('Error fetching filter preview:', error);
@@ -497,61 +618,63 @@
             });
         }
 
-        // function loadContent(page = 1, filters = {}) {
-        //     $.ajax({
-        //         url: '/get-content-job', // Endpoint untuk mendapatkan data
-        //         method: 'GET',
-        //         data: {
-        //             page: page,
-        //             ...filters
-        //         },
-        //         success: function(response) {
-        //             $('.content-page .list-recent-jobs').html(response.content);
-        //             $('.content-page .paginations').html(response.pagination);
-        //         },
-        //         error: function(xhr, status, error) {
-        //             console.error('Error fetching data:', error);
-        //         }
-        //     });
-        // }
-        // $(document).ready(function() {
-        //     // Menampilkan pratinjau filter saat halaman di-load
-        //     previewFilter();
-        //     loadContent();
-        //     // Menampilkan pratinjau filter saat input berubah
-        //     $('#filterSkill, .filterAvailability').on('input change', function() {
-        //         previewFilter();
-        //     });
-        //     // Tangani klik pagination
-        //     $(document).on('click', '.pager-number', function(e) {
-        //         e.preventDefault();
-        //         const page = $(this).data('page');
-        //         const filters = {
-        //             skill: $('#filterSkill').val(),
-        //             availability: $('.filterAvailability:checked').map(function() {
-        //                 return $(this).val();
-        //             }).get()
-        //         };
-        //         loadContent(page, filters);
-        //     });
-        //     // Tangani penerapan filter (misalnya tombol aplikasi filter)
-        //     $('#applyFilterBtn').on('click', function() {
-        //         const filters = {
-        //             skill: $('#filterSkill').val(),
-        //             availability: $('.filterAvailability:checked').map(function() {
-        //                 return $(this).val();
-        //             }).get()
-        //         };
-        //         loadContent(1, filters); // Memuat halaman pertama dengan filter baru
-        //     });
-        //     // Tangani pengaturan ulang filter
-        //     $('#resetFilterBtn').on('click', function() {
-        //         $('#filterSkill').val('');
-        //         $('.filterAvailability').prop('checked', false);
-        //         previewFilter();
-        //         loadContent(); // Muat ulang konten tanpa filter
-        //     });
-        // });
+
+        function loadEmployeeStatusTop() {
+            const url = 'load-filter-employeeStatusTop'; // Ganti dengan URL endpoint Anda
+
+            $.ajax({
+                url: url,
+                type: 'GET',
+                dataType: 'json',
+                success: function(data) {
+                    const $selectElement = $('#employeeStatusSelect');
+
+                    // Clear existing options
+                    $selectElement.empty();
+
+                    // Add a default option
+                    $selectElement.append('<option value="">Select Employee Status</option>');
+
+                    // Loop through the data and create new option elements
+                    $.each(data, function(index, item) {
+                        $selectElement.append(
+                            $('<option></option>').val(item.id).text(item.nama)
+                        );
+                    });
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error fetching salary ranges:', error);
+                }
+            });
+        }
+
+        function loadProvinsisTop() {
+            const url = 'load-filter-provinsiTop'; // Ganti dengan URL endpoint Anda
+
+            $.ajax({
+                url: url,
+                type: 'GET',
+                dataType: 'json',
+                success: function(data) {
+                    const $selectElement = $('#provinsiSelect');
+
+                    // Clear existing options
+                    $selectElement.empty();
+
+                    // Add a default option
+                    $selectElement.append('<option value="">Select Location</option>');
+
+                    // Loop through the data and create new option elements
+                    $.each(data, function(index, item) {
+                        $selectElement.append(
+                            $('<option></option>').val(item.id).text(item.nama)
+                        );
+                    });
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error fetching salary ranges:', error);
+                }
+            });
+        }
     </script>
 @endsection
-
