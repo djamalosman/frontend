@@ -33,25 +33,33 @@ Route::get('/contact', [ContactCotroller::class, 'contact'])->name('contact');
 Route::get('/fetch-upcoming-trainings', [GeneralController::class, 'fetchUpcomingTrainings'])->name('fetch-upcoming-trainings');
 Route::get('/fetch-upcoming-jobvacancy', [GeneralController::class, 'fetchUpcomingJobvacancy'])->name('fetch-upcoming-jobvacancy');
 Route::get('/fetch-upcoming-news', [GeneralController::class, 'fetcUpcominghNews'])->name('fetch-upcoming-news');
+Route::get('/load-filter-provinsiTop', [GeneralController::class, 'privieProvinsiTop'])->name('load-filter-provinsiTop');
+Route::get('/load-filter-status', [GeneralController::class, 'statusCourse'])->name('load-filter-status');
 // end route General Route
 
 // route training course
-Route::get('/traningcourse', [TranningCourseController::class, 'index'])->name('traningcourse');
+Route::get('/course-list', [TranningCourseController::class, 'CourseList'])->name('course-list');
+Route::get('/course-grid', [TranningCourseController::class, 'CourseGrid'])->name('course-grid');
 Route::get('/detail-course/{id}', [TranningCourseController::class, 'detailCourse'])->name('detail-course');
-Route::get('/get-content-training-course', [TranningCourseController::class, 'getContentTrainingCourse'])->name('get-content-training-course');
-Route::get('/preview-filter-jenis-sertifikasi-course', [TranningCourseController::class, 'previewFilter_jenis_sertifikasi'])->name('preview-filter-jenis-sertifikasi-course');
-Route::get('/filter-type-course', [TranningCourseController::class, 'previewFilter_Type_course'])->name('filter-type-course');
+Route::get('/get-content-list-course', [TranningCourseController::class, 'getContentListCourse'])->name('get-content-list-course');
+Route::get('/get-content-grid-course', [TranningCourseController::class, 'getContentGridCourse'])->name('get-content-grid-course');
+// Route::get('/preview-filter-jenis-sertifikasi-course', [TranningCourseController::class, 'previewFilter_jenis_sertifikasi'])->name('preview-filter-jenis-sertifikasi-course');
+// Route::get('/filter-type-course', [TranningCourseController::class, 'previewFilter_Type_course'])->name('filter-type-course');
+Route::get('/load-dropdown-category', [TranningCourseController::class, 'loadDataCategory'])->name('load-dropdown-category');
+Route::get('/load-dropdown-type', [TranningCourseController::class, 'loadDataType'])->name('load-dropdown-type');
 // End route training course
 
 // route Job vacancy
-Route::get('/jobvacancy', [JobVacancyController::class, 'index'])->name('jobvacancy');
+Route::get('/job-list', [JobVacancyController::class, 'JobList'])->name('job-list');
+Route::get('/job-grid', [JobVacancyController::class, 'JobGrid'])->name('job-grid');
 Route::get('/detail-job/{id}', [JobVacancyController::class, 'detailJob'])->name('detail-job');
 Route::get('/preview-filter-job', [JobVacancyController::class, 'previewFilter'])->name('preview-filter-job');
-Route::get('/filter-work-location-job', [JobVacancyController::class, 'previewFilterWorkLocation'])->name('filter-work-location-job');
+Route::get('/load-filter-salaray-range', [JobVacancyController::class, 'previewFilterSalarayRange'])->name('load-filter-salaray-range');
+Route::get('/filter-placement', [JobVacancyController::class, 'previewFilterPlacement'])->name('filter-placement');
 Route::get('/filter-experience-level-job', [JobVacancyController::class, 'previewFilterExperienceLevel'])->name('filter-experience-level-job');
 Route::get('/filter-education-job', [JobVacancyController::class, 'previewFilterEducation'])->name('filter-education-job');
-Route::get('/get-content-job', [JobVacancyController::class, 'getContentJob'])->name('get-content-job');
+Route::get('/get-content-job-list', [JobVacancyController::class, 'getContentJobList'])->name('get-content-job-list');
+Route::get('/get-content-job-grid', [JobVacancyController::class, 'getContentJobGrid'])->name('get-content-job-grid');
+Route::get('/load-filter-employeeStatusTop', [JobVacancyController::class, 'priviewEmployeeStatusTop'])->name('load-filter-employeeStatusTop');
+
 // end route Job vacancy
-
-
-

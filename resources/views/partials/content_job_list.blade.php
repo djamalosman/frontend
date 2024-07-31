@@ -13,7 +13,7 @@
                     <h6 class="card-job-top--info-heading"><a href="/detail-job/{{$value->id}}">{{ $value->job_title }}</a></h6>
                     <div class="row">
                         <div class="col-lg-12">
-                            <a href="/detail-job/{{$value->id}}"> <a href="/detail-job/{{$value->id}}"><span class="card-job-top--company">Nama Perusahaan</span></a></a>
+                            <a href="/detail-job/{{$value->id}}"> <a href="/detail-job/{{$value->id}}"><span class="card-job-top--company">{{$value->companyName}}</span></a></a>
                             <span class="card-job-top--type-job text-sm"><i class="fi-rr-briefcase"></i> {{$value->nama_status}}</span>
                             <span class="card-job-top--location text-sm"><i class="fi-rr-marker"></i> {{$value->work_location}}</span>
                         </div>
@@ -40,19 +40,11 @@
                 </div>
             </div>
             <div class="card-job-description mt-20">
-                     <h6 class="card-job-top--info-heading"><a href="/detail-job/{{$value->id}}">Skill Requirement :</a></h6>
+                     <h6 class="card-job-top--info-heading "><a href="/detail-job/{{$value->id}}">Skill Requirement :</a></h6>
             </div>
-            <div class="card-job-description mt-10">
-                <a href="/detail-job/{{$value->id}}">
-                    <h6 class="card-job-top--info-heading"><?php echo $value->skill_requirment; ?></h6>
-                </a>
-
+            <div class="card-job-description mt-10 description">
+                   <?php echo $value->skill_requirment; ?>
             </div>
 
         </div>
     @endforeach
-
-
-
-
-

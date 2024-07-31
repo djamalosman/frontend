@@ -12,33 +12,24 @@
 	<div class="container">
 		<div class="main-header">
 			<div class="header-left">
-				<div class="header-logo">
-					<a href="index.html" class="d-flex"><img alt="jobhub" src="{{ asset('assets/imgs/theme/jobhub-logo.svg')}}" /></a>
-				</div>
+				<div class="header-logo"></div>
 				<div class="header-nav">
 					<nav class="nav-main-menu d-none d-xl-block">
 						<ul class="main-menu">
 							<li class="has">
 								<a class="active" href="{{route('welcome')}}">Home</a>
 							</li>
+
 							<li class="has">
-								<a href="{{route('companybrief')}}">Company brief</a>
+                                <a href="{{route('course-list')}}">Browse Training By Category</a>
 							</li>
 							<li class="has">
-								<a href="{{route('visimisi')}}">Vision and mission</a>
+								<a href="{{route('job-list')}}">Recent Jobs</a>
 							</li>
 							<li class="has">
-                                <a href="{{route('traningcourse')}}">Training / Course</a>
+								<a href="employers-grid.html">Latest News</a>
 							</li>
-							<li class="has">
-								<a href="{{route('jobvacancy')}}">Browse Jobs</a>
-							</li>
-							<li class="has">
-								<a href="employers-grid.html">News & Update</a>
-							</li>
-							<li class="has">
-								<a href="employers-grid.html">Contact</a>
-							</li>
+
 						</ul>
 					</nav>
 					<div class="burger-icon burger-icon-white">
@@ -75,27 +66,16 @@
 					<!-- mobile menu start -->
 					<nav>
 						<ul class="mobile-menu font-heading">
-							<li class="has">
-								<a class="active" href="{{route('welcome')}}">Home</a>
-							</li>
-							<li class="has">
-								<a href="employers-grid.html">About Us</a>
-							</li>
-							<li class="has">
-								<a href="{{route('visimisi')}}">Vision and mission</a>
-							</li>
-							<li class="has">
-								<a href="{{route('traningcourse')}}">Training / Course</a>
-							</li>
-							<li class="has">
-								<a href="{{route('jobvacancy')}}">Browse Jobs</a>
-							</li>
-							<li class="has">
-								<a href="employers-grid.html">News & Update</a>
-							</li>
-							<li class="has">
-								<a href="employers-grid.html">Contact</a>
-							</li>
+                            <li class="has">
+                                <a href="{{route('course-list')}}">Browse Training By Category</a>
+                            </li>
+                            <li class="has">
+                                <a href="{{route('job-list')}}">Recent Jobs</a>
+                            </li>
+                            <li class="has">
+                                <a href="#">Latest News</a>
+                            </li>
+
 						</ul>
 					</nav>
 					<!-- mobile menu end -->

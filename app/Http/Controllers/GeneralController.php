@@ -13,8 +13,8 @@ class GeneralController extends Controller
     public function fetchUpcomingTrainings()
     {
         $query = DB::table('dtc_training_course_detail')
-            ->leftjoin('m_category_training_course', 'm_category_training_course.id', '=', 'dtc_training_course_detail.id_m_category_training_course') // Bergabung dengan tabel tipe_master
-            ->leftjoin('m_jenis_sertifikasi_training_course', 'm_jenis_sertifikasi_training_course.id', '=', 'dtc_training_course_detail.id_m_jenis_sertifikasi_training_course') // Bergabung dengan tabel ifg_master_tipe
+            ->leftjoin('m_category_training_course', 'm_category_training_course.id', '=', 'dtc_training_course_detail.id_m_category_training_course')
+            ->leftjoin('m_jenis_sertifikasi_training_course', 'm_jenis_sertifikasi_training_course.id', '=', 'dtc_training_course_detail.id_m_jenis_sertifikasi_training_course')
             ->leftjoin('m_type_training_course', 'm_type_training_course.id', '=', 'dtc_training_course_detail.typeonlineoffile')
             ->select('dtc_training_course_detail.*',
                 'm_category_training_course.nama as category',
@@ -58,5 +58,19 @@ class GeneralController extends Controller
             ->select('news_detail.*', 'm_news.nama as category') ;
         $news = $query->where('news_detail.status',1)->orderBy('news_detail.created_at', 'desc')->limit(3)->get();
         return view('partials.upcoming_news_update', compact('news'))->render();
+    }
+
+    public function privieProvinsiTop(Request $request)
+    {
+        $provinsi = DB::table('m_provinsi')->get();
+
+        return response()->json($provinsi);
+    }
+
+    public function statusCourse(Request $request)
+    {
+        $Status = DB::table('m_status')->get();
+
+        return response()->json($Status);
     }
 }

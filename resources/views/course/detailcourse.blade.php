@@ -3,14 +3,17 @@
     {{$title}}
 @endsection
 @section('content')
-
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<style>
+.mySlides {display:none;}
+</style>
     <section class="section-box">
         <div class="box-head-single">
             <div class="container">
                 <h3>{{$getdataDetail->traning_name}}</h3>
                 <ul class="breadcrumbs">
-                    <li><a href="#">Training / Course</a></li>
-                    <li>{{$title}}</li>
+                    <li><a href="#">Browse Training By Category</a></li>
+                    <li>Detail Training</li>
                 </ul>
             </div>
         </div>
@@ -20,8 +23,20 @@
             <div class="row">
                 <div class="col-lg-8 col-md-12 col-sm-12 col-12">
                     <div class="single-image-feature">
-                        <figure><img alt="jobhub" src="{{ asset('assets/imgs/page/job-single/img-job-feature.png')}}" class="img-rd-15" />
-                        </figure>
+                       
+                        
+                        <div class="w3-content w3-display-container">
+                            @foreach ($listfiles as $valFile)
+                                <div class="w3-display-container mySlides">
+                                    <img  src="{{ asset('http://127.0.0.1:8081/storage/' . ($valFile->nama ?? '')) }}" style="width:100%" />
+                                
+                                </div>
+                            @endforeach
+                           
+                            {{-- <button class="w3-button w3-display-left w3-black" onclick="plusDivs(-1)">&#10094;</button>
+                            <button class="w3-button w3-display-right w3-black" onclick="plusDivs(1)">&#10095;</button> --}}
+                            
+                        </div>
                     </div>
                     <div class="content-single">
                         <h5>Training requirements</h5>
@@ -36,7 +51,7 @@
                                 <li>  {{$materi->nama}} </li>
                             @endforeach
                         </ul>
-                        <h5>Tacility</h5>
+                        <h5>Facility</h5>
                         <ul>
                             @foreach($listfasilitas as $fasilitas)
                                 <li>  {{$fasilitas->nama}} </li>
@@ -139,4 +154,43 @@
             </div>
         </div>
     </section>
+   
+
+    <script>
+        var myIndex = 0;
+        carousel();
+        
+        function carousel() {
+          var i;
+          var x = document.getElementsByClassName("mySlides");
+          for (i = 0; i < x.length; i++) {
+            x[i].style.display = "none";  
+          }
+          myIndex++;
+          if (myIndex > x.length) {myIndex = 1}    
+          x[myIndex-1].style.display = "block";  
+          setTimeout(carousel, 2000); // Change image every 2 seconds
+        }
+    </script>
+    {{-- <script>
+        var slideIndex = 1;
+        showDivs(slideIndex);
+        
+        function plusDivs(n) {
+          showDivs(slideIndex += n);
+        }
+        
+        function showDivs(n) {
+          var i;
+          var x = document.getElementsByClassName("mySlides");
+          if (n > x.length) {slideIndex = 1}
+          if (n < 1) {slideIndex = x.length}
+          for (i = 0; i < x.length; i++) {
+             x[i].style.display = "none";  
+          }
+          x[slideIndex-1].style.display = "block";  
+        }
+    </script> --}}
+        
+        
 @endsection

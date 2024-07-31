@@ -56,6 +56,7 @@
 
                         <div class="text-start mt-20">
                             <a href="#" class="btn btn-default mr-10">Share</a>
+                            <a href="{{$getdataDetail->linkpendaftaran}}" class="btn btn-default mr-10">Apply</a>
                         </div>
                         <div class="sidebar-list-job">
                             <ul>
