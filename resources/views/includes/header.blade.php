@@ -27,7 +27,7 @@
 								<a href="{{route('job-list')}}">Recent Jobs</a>
 							</li>
 							<li class="has">
-								<a href="employers-grid.html">Latest News</a>
+								<a href="{{route('news-list')}}">Latest News</a>
 							</li>
 
 						</ul>
@@ -73,7 +73,7 @@
                                 <a href="{{route('job-list')}}">Recent Jobs</a>
                             </li>
                             <li class="has">
-                                <a href="#">Latest News</a>
+                                <a href="{{route('news-list')}}">Latest News</a>
                             </li>
 
 						</ul>

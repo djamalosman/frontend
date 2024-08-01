@@ -144,13 +144,13 @@
                                 </div>
                             </div>
                             <div class="filter-block mb-30">
-                                <h5 class="medium-heading mb-15">Employment Status</h5>
-                                <div class="form-group">
-                                    <ul class="list-checkbox">
-                                        <div id="filterEmployeeStatus">
-                                            <!-- Pratinjau filter akan ditampilkan di sini -->
-                                        </div>
-                                    </ul>
+                                <h5 class="medium-heading mb-15">Job type</h5>
+                                
+                                <div class="form-group select-style select-style-icon">
+                                    <select id="filterEmployeeStatus" class="form-control form-icons select-active">
+                                        <!-- Options will be loaded here via AJAX -->
+                                    </select>
+                                    <i class="fi-rr-briefcase"></i>
                                 </div>
                             </div>
 
@@ -278,13 +278,14 @@
             console.log('Document ready'); // Debugging line
 
 
-            PreviewemployeeStatus();
+            //PreviewemployeeStatus();
             PriviewfilterPlacement();
             filterExperienceLevel();
             loadSalaryRanges();
             loadEmployeeStatusTop();
             loadProvinsisTop();
             loadSalaryRangesTop();
+            loadEmployeeStatusLeft();
             //filterEducation();
             let currentSort = 'newest'; // Default sorting
 
@@ -326,13 +327,14 @@
                      placement: $('.filterPlacement:checked').map(function() {
                         return $(this).val();
                     }).get(),
-                    employestatus: $('.filterEmployeeStatus:checked').map(function() {
-                        return $(this).val();
-                    }).get(),
+                    // employestatus: $('.filterEmployeeStatus:checked').map(function() {
+                    //     return $(this).val();
+                    // }).get(),
                     experiencelevel: $('.filterExperiencelevel:checked').map(function() {
                         return $(this).val();
                     }).get(),
                     salaryRange: $('#salaryRangeSelect').val(),
+                    employestatus: $('#filterEmployeeStatus').val(),
                     employeeStatusSelect: $('#employeeStatusSelect').val(),
                     provinsi: $('#provinsiSelect').val(),
                     salaryRangeTop: $('#salaryRangeSelectTop').val(),
@@ -351,13 +353,14 @@
                     placement: $('.filterPlacement:checked').map(function() {
                         return $(this).val();
                     }).get(),
-                    employestatus: $('.filterEmployeeStatus:checked').map(function() {
-                        return $(this).val();
-                    }).get(),
+                    // employestatus: $('.filterEmployeeStatus:checked').map(function() {
+                    //     return $(this).val();
+                    // }).get(),
                     experiencelevel: $('.filterExperiencelevel:checked').map(function() {
                         return $(this).val();
                     }).get(),
                     salaryRange: $('#salaryRangeSelect').val(),
+                    employestatus: $('#filterEmployeeStatus').val(),
                     employeeStatusSelect: $('#employeeStatusSelect').val(),
                     provinsi: $('#provinsiSelect').val(),
                     salaryRangeTop: $('#salaryRangeSelectTop').val(),
@@ -377,13 +380,14 @@
                         placement: $('.filterPlacement:checked').map(function() {
                             return $(this).val();
                         }).get(),
-                        employestatus: $('.filterEmployeeStatus:checked').map(function() {
-                            return $(this).val();
-                        }).get(),
+                        // employestatus: $('.filterEmployeeStatus:checked').map(function() {
+                        //     return $(this).val();
+                        // }).get(),
                         experiencelevel: $('.filterExperiencelevel:checked').map(function() {
                             return $(this).val();
                         }).get(),
                         salaryRange: $('#salaryRangeSelect').val(),
+                        employestatus: $('#filterEmployeeStatus').val(),
                         employeeStatusSelect: $('#employeeStatusSelect').val(),
                         provinsi: $('#provinsiSelect').val(),
                         salaryRangeTop: $('#salaryRangeSelectTop').val(),
@@ -404,13 +408,14 @@
                         placement: $('.filterPlacement:checked').map(function() {
                             return $(this).val();
                         }).get(),
-                        employestatus: $('.filterEmployeeStatus:checked').map(function() {
-                            return $(this).val();
-                        }).get(),
+                        // employestatus: $('.filterEmployeeStatus:checked').map(function() {
+                        //     return $(this).val();
+                        // }).get(),
                         experiencelevel: $('.filterExperiencelevel:checked').map(function() {
                             return $(this).val();
                         }).get(),
                         salaryRange: $('#salaryRangeSelect').val(),
+                        employestatus: $('#filterEmployeeStatus').val(),
                         employeeStatusSelect: $('#employeeStatusSelect').val(),
                         provinsi: $('#provinsiSelect').val(),
                         salaryRangeTop: $('#salaryRangeSelectTop').val(),
@@ -427,13 +432,14 @@
                     placement: $('.filterPlacement:checked').map(function() {
                         return $(this).val();
                     }).get(),
-                    employestatus: $('.filterEmployeeStatus:checked').map(function() {
-                        return $(this).val();
-                    }).get(),
+                    // employestatus: $('.filterEmployeeStatus:checked').map(function() {
+                    //     return $(this).val();
+                    // }).get(),
                     experiencelevel: $('.filterExperiencelevel:checked').map(function() {
                         return $(this).val();
                     }).get(),
                     salaryRange: $('#salaryRangeSelect').val(),
+                    employestatus: $('#filterEmployeeStatus').val(),
                     employeeStatusSelect: $('#employeeStatusSelect').val(),
                     provinsi: $('#provinsiSelect').val(),
                     salaryRangeTop: $('#salaryRangeSelectTop').val(),
@@ -449,13 +455,14 @@
                     placement: $('.filterPlacement:checked').map(function() {
                         return $(this).val();
                     }).get(),
-                    employestatus: $('.filterEmployeeStatus:checked').map(function() {
-                        return $(this).val();
-                    }).get(),
+                    // employestatus: $('.filterEmployeeStatus:checked').map(function() {
+                    //     return $(this).val();
+                    // }).get(),
                     experiencelevel: $('.filterExperiencelevel:checked').map(function() {
                         return $(this).val();
                     }).get(),
                     salaryRange: $('#salaryRangeSelect').val(),
+                    employestatus: $('#filterEmployeeStatus').val(),
                     employeeStatusSelect: $('#employeeStatusSelect').val(),
                     provinsi: $('#provinsiSelect').val(),
                     salaryRangeTop: $('#salaryRangeSelectTop').val(),
@@ -469,10 +476,11 @@
                 $('#filterJobtitle').val('');
                 $('#salaryRangeSelect').val('');
                 $('#salaryRangeSelectTop').val('');
+                $('#filterEmployeeStatus').val('');
                 $('#employeeStatusSelect').val('');
                 $('#provinsiSelect').val('');
                 $('#filterexperiencelevel').val('');
-                $('.filterEmployeeStatus').prop('checked', false);
+                //$('.filterEmployeeStatus').prop('checked', false);
                 $('.filterPlacement').prop('checked', false);
                 $('.filterexperiencelevel').prop('checked', false);
                 console.log('Reset filter button clicked'); // Debugging line
@@ -499,7 +507,7 @@
                     // Loop through the data and create new option elements
                     $.each(data, function(index, item) {
                         $selectElement.append(
-                            $('<option></option>').val(item.nama).text(item.nama)
+                            $('<option></option>').val(item.id).text(item.nama)
                         );
                     });
                 },
@@ -528,7 +536,7 @@
                     // Loop through the data and create new option elements
                     $.each(data, function(index, item) {
                         $selectElement.append(
-                            $('<option></option>').val(item.nama).text(item.nama)
+                            $('<option></option>').val(item.id).text(item.nama)
                         );
                     });
                 },
@@ -539,24 +547,9 @@
         }
 
 
-        function PreviewemployeeStatus() {
-            const filters = {
-                employeeStatus: $('.filterEmployeeStatus:checked').map(function() {
-                    return $(this).val();
-                }).get()
-            };
-            $.ajax({
-                url: '/preview-filter-job', // Endpoint untuk pratinjau filter
-                method: 'GET',
-                data: filters,
-                success: function(response) {
-                    $('#filterEmployeeStatus').html(response);
-                },
-                error: function(xhr, status, error) {
-                    console.error('Error fetching filter preview:', error);
-                }
-            });
-        }
+        
+
+        
 
         function PriviewfilterPlacement() {
             const filters = {
@@ -618,7 +611,34 @@
             });
         }
 
+        function loadEmployeeStatusLeft() {
+            const url = 'load-filter-employeeStatusTop'; // Ganti dengan URL endpoint Anda
 
+            $.ajax({
+                url: url,
+                type: 'GET',
+                dataType: 'json',
+                success: function(data) {
+                    const $selectElement = $('#filterEmployeeStatus');
+
+                    // Clear existing options
+                    $selectElement.empty();
+
+                    // Add a default option
+                    $selectElement.append('<option value="">Select Employee Status</option>');
+
+                    // Loop through the data and create new option elements
+                    $.each(data, function(index, item) {
+                        $selectElement.append(
+                            $('<option></option>').val(item.id).text(item.nama)
+                        );
+                    });
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error fetching salary ranges:', error);
+                }
+            });
+        }
         function loadEmployeeStatusTop() {
             const url = 'load-filter-employeeStatusTop'; // Ganti dengan URL endpoint Anda
 

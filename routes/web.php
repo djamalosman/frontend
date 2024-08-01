@@ -7,6 +7,7 @@ use App\Http\Controllers\TranningCourseController;
 use App\Http\Controllers\JobVacancyController;
 use App\Http\Controllers\ContactCotroller;
 use App\Http\Controllers\GeneralController;
+use App\Http\Controllers\NewsUpdateController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -48,6 +49,15 @@ Route::get('/get-content-grid-course', [TranningCourseController::class, 'getCon
 Route::get('/load-dropdown-category', [TranningCourseController::class, 'loadDataCategory'])->name('load-dropdown-category');
 Route::get('/load-dropdown-type', [TranningCourseController::class, 'loadDataType'])->name('load-dropdown-type');
 // End route training course
+
+//Latest News
+Route::get('/news-list', [NewsUpdateController::class, 'NewsList'])->name('news-list');
+Route::get('/news-grid', [NewsUpdateController::class, 'NewsGrid'])->name('news-grid');
+Route::get('/get-content-news-list', [NewsUpdateController::class, 'getContentNewsList'])->name('get-content-news-list');
+Route::get('/get-content-news-grid', [NewsUpdateController::class, 'getContentNewsGrid'])->name('get-content-news-grid');
+Route::get('/detail-news/{id}', [NewsUpdateController::class, 'detailNews'])->name('detail-news');
+Route::get('/load-filter-jenis-berita', [NewsUpdateController::class, 'previewJenisBerita'])->name('load-filter-jenis-berita');
+//End Latest News
 
 // route Job vacancy
 Route::get('/job-list', [JobVacancyController::class, 'JobList'])->name('job-list');

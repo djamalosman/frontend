@@ -143,6 +143,7 @@ class JobVacancyController extends Controller
             ->leftJoin('m_sector', 'm_sector.id', '=', 'djv_job_vacancy_detail.id_m_sector')
             ->leftJoin('m_education', 'm_education.id', '=', 'djv_job_vacancy_detail.id_m_education')
             ->leftJoin('m_experience_level', 'm_experience_level.id', '=', 'djv_job_vacancy_detail.id_m_experience_level')
+            ->leftJoin('m_provinsi', 'm_provinsi.id', '=', 'djv_job_vacancy_detail.id_provinsi')
             ->select(
                 'djv_job_vacancy_detail.*',
                 'm_employee_status.nama as nama_status',
@@ -156,11 +157,19 @@ class JobVacancyController extends Controller
         $whereData=$query->where('djv_job_vacancy_detail.status',1);
 
        // dd($filters);
+       
         // filter job title
         if (!empty($filters['jobtitle']) && is_array($filters['jobtitle'])) {
             $whereData->whereIn('djv_job_vacancy_detail.job_title', $filters['jobtitle']);
         } elseif (!empty($filters['jobtitle']) && is_string($filters['jobtitle'])) {
             $whereData->where('djv_job_vacancy_detail.job_title', 'LIKE', '%' . $filters['jobtitle'] . '%');
+        }
+
+        // filter Provinsi
+        if (!empty($filters['provinsi']) && is_array($filters['provinsi'])) {
+            $whereData->whereIn('m_provinsi.id', $filters['provinsi']);
+        } elseif (!empty($filters['provinsi']) && is_string($filters['provinsi'])) {
+            $whereData->where('m_provinsi.id', 'LIKE', '%' . $filters['provinsi'] . '%');
         }
 
         // filter lokasi
@@ -171,29 +180,29 @@ class JobVacancyController extends Controller
         }
         // Filter Job type
         if (!empty($filters['employeeStatusSelect']) && is_array($filters['employeeStatusSelect'])) {
-            $whereData->whereIn('m_employee_status.nama', $filters['employeeStatusSelect']);
+            $whereData->whereIn('m_employee_status.id', $filters['employeeStatusSelect']);
         } elseif (!empty($filters['employeeStatusSelect']) && is_string($filters['employeeStatusSelect'])) {
-            $whereData->where('m_employee_status.nama', 'LIKE', '%' . $filters['employeeStatusSelect'] . '%');
+            $whereData->where('m_employee_status.id', 'LIKE', '%' . $filters['employeeStatusSelect'] . '%');
         }
 
-        if (!empty($filters['employeeStatus']) && is_array($filters['employeeStatus'])) {
-            $whereData->whereIn('m_employee_status.nama', $filters['employeeStatus']);
-        } elseif (!empty($filters['employeeStatus']) && is_string($filters['employeeStatus'])) {
-            $whereData->where('m_employee_status.nama', 'LIKE', '%' . $filters['employeeStatus'] . '%');
+        if (!empty($filters['employestatus']) && is_array($filters['employestatus'])) {
+            $whereData->whereIn('m_employee_status.id', $filters['employestatus']);
+        } elseif (!empty($filters['employestatus']) && is_string($filters['employestatus'])) {
+            $whereData->where('m_employee_status.id', 'LIKE', '%' . $filters['employestatus'] . '%');
         }
 
         // Filter salary range
         if (!empty($filters['salaryRange']) && is_array($filters['salaryRange'])) {
-            $whereData->whereIn('m_salary.nama', $filters['salaryRange']);
+            $whereData->whereIn('m_salary.id', $filters['salaryRange']);
         } elseif (!empty($filters['salaryRange']) && is_string($filters['salaryRange'])) {
-            $whereData->where('m_salary.nama', 'LIKE', '%' . $filters['salaryRange'] . '%');
+            $whereData->where('m_salary.id', 'LIKE', '%' . $filters['salaryRange'] . '%');
         }
 
         // Filter salary range Top
         if (!empty($filters['salaryRangeTop']) && is_array($filters['salaryRangeTop'])) {
-            $whereData->whereIn('m_salary.nama', $filters['salaryRangeTop']);
+            $whereData->whereIn('m_salary.id', $filters['salaryRangeTop']);
         } elseif (!empty($filters['salaryRangeTop']) && is_string($filters['salaryRangeTop'])) {
-            $whereData->where('m_salary.nama', 'LIKE', '%' . $filters['salaryRangeTop'] . '%');
+            $whereData->where('m_salary.id', 'LIKE', '%' . $filters['salaryRangeTop'] . '%');
         }
 
         // Filter worklocation
