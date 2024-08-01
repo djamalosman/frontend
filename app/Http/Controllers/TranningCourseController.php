@@ -103,7 +103,7 @@ class TranningCourseController extends Controller
     public function getContentListCourse(Request $request)
     {
         $filters = $request->all();
-        
+
         $query = DB::table('dtc_training_course_detail')
             ->leftjoin('m_category_training_course', 'm_category_training_course.id', '=', 'dtc_training_course_detail.id_m_category_training_course') // Bergabung dengan tabel tipe_master
             ->leftjoin('m_jenis_sertifikasi_training_course', 'm_jenis_sertifikasi_training_course.id', '=', 'dtc_training_course_detail.id_m_jenis_sertifikasi_training_course') // Bergabung dengan tabel ifg_master_tipe
@@ -121,12 +121,12 @@ class TranningCourseController extends Controller
         // Filter training name
         if (!empty($filters['trainingname']) && is_array($filters['trainingname'])) {
             $whereData->whereIn('dtc_training_course_detail.traning_name', $filters['trainingname']);
-            
+
         } elseif (!empty($filters['trainingname']) && is_string($filters['trainingname'])) {
             $whereData->where('dtc_training_course_detail.traning_name', 'LIKE', '%' . $filters['trainingname'] . '%');
         }
 
-       
+
         // Filter category
         if (!empty($filters['category']) && is_array($filters['category'])) {
             $whereData->whereIn('m_category_training_course.id', $filters['category']);
@@ -221,7 +221,7 @@ class TranningCourseController extends Controller
     public function getContentGridCourse(Request $request)
     {
         $filters = $request->all();
-        
+
         $query = DB::table('dtc_training_course_detail')
             ->leftjoin('m_category_training_course', 'm_category_training_course.id', '=', 'dtc_training_course_detail.id_m_category_training_course') // Bergabung dengan tabel tipe_master
             ->leftjoin('m_jenis_sertifikasi_training_course', 'm_jenis_sertifikasi_training_course.id', '=', 'dtc_training_course_detail.id_m_jenis_sertifikasi_training_course') // Bergabung dengan tabel ifg_master_tipe
@@ -231,7 +231,7 @@ class TranningCourseController extends Controller
                 'm_category_training_course.nama as category',
                 'm_jenis_sertifikasi_training_course.nama as cetificate_type',
                 'm_type_training_course.nama as typeonlineofline',
-                'm_provinsi.nama as nama_provinsi'
+                'm_provinsi.nama as nama_provinsi',
             );
 
         $whereData=$query->where('dtc_training_course_detail.status',1);
@@ -239,12 +239,12 @@ class TranningCourseController extends Controller
         // Filter training name
         if (!empty($filters['trainingname']) && is_array($filters['trainingname'])) {
             $whereData->whereIn('dtc_training_course_detail.traning_name', $filters['trainingname']);
-            
+
         } elseif (!empty($filters['trainingname']) && is_string($filters['trainingname'])) {
             $whereData->where('dtc_training_course_detail.traning_name', 'LIKE', '%' . $filters['trainingname'] . '%');
         }
 
-       
+
         // Filter category
         if (!empty($filters['category']) && is_array($filters['category'])) {
             $whereData->whereIn('m_category_training_course.id', $filters['category']);
@@ -327,12 +327,18 @@ class TranningCourseController extends Controller
         $sortAndView = view('partials.sort_and_view', [
             'sortBy' => $filters['sortBy'] ?? 'Newest Post'
         ])->render();
-
+        $listfiles = dtc_File_TrainingCourseModel::orderBy('nama', 'asc')->get();
         return response()->json([
-            'content' => view('partials.content_course_grid', ['data' => $data])->render(),
-            'pagination' => view('partials.pagination', ['data' => $data])->render(),
+            'content' => view('partials.content_course_grid', [
+                'data' => $data,
+                'listfiles' => $listfiles
+            ])->render(),
+            'pagination' => view('partials.pagination', [
+                'data' => $data
+            ])->render(),
             'showing' => $showing,
             'sort_and_view' => $sortAndView
         ]);
+
     }
 }

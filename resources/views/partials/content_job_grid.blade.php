@@ -2,8 +2,17 @@
  <div class="col-lg-4 col-md-6">
     <div class="card-grid-2 hover-up wow animate__animated animate__fadeIn" data-wow-delay=".0s">
         <div class="text-center card-grid-2-image">
-            <a href="job-single.html">
-                <figure><img alt="jobhub" src="assets/imgs/jobs/job-1.png" /></figure>
+            <a href="#">
+                @if($value->file !=null)
+                        <div class="imgGrid-container">
+                            <img class="imgGrid" src="{{ asset('http://127.0.0.1:8081/storage/' . ($value->file ?? '')) }}" />
+                        </div>
+                    @else
+                        <div class="imgGrid-container">
+                            <img class="imgGrid" src="assets/imgs/jobs/job-1.png" />
+                        </div>
+
+                    @endif
             </a>
             <label class="btn-urgent"> {{$value->nama_status}}</label>
         </div>

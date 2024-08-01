@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\JobVacancyDetailModel;
-use App\Models\TrainingCourseDetailModel;
+use App\Models\JobFileModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\DB;
@@ -382,12 +382,26 @@ class JobVacancyController extends Controller
             'sortBy' => $filters['sortBy'] ?? 'Newest Post'
         ])->render();
 
+        //$listfiles = JobFileModel::orderBy('nama', 'asc')->get();
+            
         return response()->json([
             'content' => view('partials.content_job_grid', ['data' => $data])->render(),
             'pagination' => view('partials.pagination', ['data' => $data])->render(),
             'showing' => $showing,
             'sort_and_view' => $sortAndView
         ]);
+
+        // return response()->json([
+        //     'content' => view('partials.content_job_grid', [
+        //         'data' => $data,
+        //         'listfiles' => $listfiles
+        //     ])->render(),
+        //     'pagination' => view('partials.pagination', [
+        //         'data' => $data
+        //     ])->render(),
+        //     'showing' => $showing,
+        //     'sort_and_view' => $sortAndView
+        // ]);
     }
 
 

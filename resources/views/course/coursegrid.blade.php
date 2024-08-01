@@ -3,7 +3,26 @@
     {{$title}}
 @endsection
 @section('content')
+    <style>
+        
+        .imgGrid-container {
+            display: flex;
+            justify-content: center; /* Centring image horizontally */
 
+
+            height: 20vh; /* Adjust to your needs */
+        }
+
+        .imgGrid {
+
+            width: 100%;
+
+            max-width: 400px; /* Set a maximum width if needed */
+            max-height: 400px; /* Set a maximum height if needed */
+        }
+       
+        .mySlides {display:none;}
+    </style>
     <section class="section-box-2">
         <div class="box-head-single none-bg">
             <div class="container">
@@ -66,7 +85,7 @@
                                     </div>
                                 </div>
                                 <div class="box-button-find">
-                                    <button class="btn btn-default" id="applyFilterBtnTop" float-right">Find Now</button>
+                                    <button class="btn btn-default" id="applyFilterBtnTop" >Find Now</button>
                                 </div>
                             </div>
                         </div>
@@ -80,7 +99,7 @@
 
         <div class="container">
             <div class="row flex-row-reverse">
-                
+
 
                 <!-- Page content -->
                 <div class="col-lg-9 col-md-12 col-sm-12 col-12 float-right">
@@ -147,7 +166,7 @@
                     <div class="sidebar-shadow none-shadow mb-30">
                         <h5 class="sidebar-title">Filters</h5>
                         <div class="sidebar-filters">
-                            
+
 
                             <div class="filter-block mb-30">
                                 <h5 class="medium-heading mb-15">Category</h5>
@@ -171,7 +190,7 @@
                                     <select id="statusSelect" class="form-control form-icons select-active">
                                         <!-- Options will be loaded here via AJAX  -->
                                     </select>
-                                    
+
                                 </div>
                             </div>
                             <div class="filter-block mb-30">
@@ -180,10 +199,10 @@
                                     <select id="typeSelect" class="form-control form-icons select-active">
                                         <!-- Options will be loaded here via AJAX  -->
                                     </select>
-                                    
+
                                 </div>
                             </div>
-                            
+
 
                             <div class="buttons-filter">
                                 <button id="applyFilterBtn" class="btn btn-default">Apply filter</button>
@@ -217,10 +236,26 @@
     </section>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
     <script>
-
-      
+        var slideIndex = 1;
+        showDivs(slideIndex);
+        
+        function plusDivs(n) {
+          showDivs(slideIndex += n);
+        }
+        
+        function showDivs(n) {
+          var i;
+          var x = document.getElementsByClassName("mySlides");
+          if (n > x.length) {slideIndex = 1}
+          if (n < 1) {slideIndex = x.length}
+          for (i = 0; i < x.length; i++) {
+             x[i].style.display = "none";  
+          }
+          x[slideIndex-1].style.display = "block";  
+        }
+    </script>
+    <script>
 
         $(document).ready(function() {
             // Mengambil data upcoming trainings
@@ -300,7 +335,7 @@
                         statusTop: $('#statusTop').val(),
                         typeTop: $('#typeTop').val(),
 
-                  
+
                 };
                 loadContent(1, filters, currentSort); // Fetch content with new sort
             });
@@ -320,7 +355,7 @@
                         statusTop: $('#statusTop').val(),
                         typeTop: $('#typeTop').val(),
 
-                   
+
                 };
                 loadContent(page, filters, currentSort); // Fetch content with current sort
             });
@@ -378,7 +413,7 @@
                     provinsiTop: $('#provinsiTop').val(),
                     statusTop: $('#statusTop').val(),
                     typeTop: $('#typeTop').val(),
-                   
+
                 };
                 console.log('Apply filter button clicked'); // Debugging line
                 loadContent(1, filters, currentSort); // Fetch content with filters and current sort
@@ -391,7 +426,7 @@
                     provinsi: $('#provinsiTop').val(),
                     status: $('#statusTop').val(),
                     type: $('#typeTop').val(),
-                   
+
                 };
                 console.log('Apply filter button clicked'); // Debugging line
                 loadContent(1, filters, currentSort); // Fetch content with filters and current sort
@@ -411,7 +446,7 @@
             });
         });
 
-       
+
 
         function loadCategoryLeft() {
             const url = 'load-dropdown-category'; // Ganti dengan URL endpoint Anda

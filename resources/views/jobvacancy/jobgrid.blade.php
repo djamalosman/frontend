@@ -3,7 +3,23 @@
     {{$title}}
 @endsection
 @section('content')
+    <style>
+        .imgGrid-container {
+            display: flex;
+            justify-content: center; /* Centring image horizontally */
 
+
+            height: 20vh; /* Adjust to your needs */
+        }
+
+        .imgGrid {
+
+            width: 100%;
+
+            max-width: 400px; /* Set a maximum width if needed */
+            max-height: 400px; /* Set a maximum height if needed */
+        }
+    </style>
     <section class="section-box-2">
         <div class="box-head-single none-bg">
             <div class="container">
