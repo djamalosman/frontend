@@ -33,6 +33,7 @@ class JobVacancyDetailModel extends Model
         'insert_by',
         'updated_by',
         'updated_by_ip',
-        'status'
+        'status',
+        'id_provinsi'
     ];
 }
