@@ -3,23 +3,52 @@
     {{$title}}
 @endsection
 @section('content')
-    <style>
-        .imgGrid-container {
-            display: flex;
-            justify-content: center; /* Centring image horizontally */
+<style>
+    /* Menyusun gaya untuk card dan gambarnya */
+   .card-grid-2 {
+       position: relative;
+       overflow: hidden;
+       border-radius: 8px;
+       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+       margin-bottom: 30px;
+   }
 
+   .card-grid-2-image {
+       overflow: hidden;
+       position: relative;
+   }
 
-            height: 20vh; /* Adjust to your needs */
-        }
+   .card-grid-2-image a {
+       display: block;
+       width: 100%;
+   }
 
-        .imgGrid {
+   .imgGrid-container {
+       position: relative;
+       width: 100%;
+       padding-top: 60%; /* Mengatur rasio aspek gambar (60% untuk rasio 16:9) */
+   }
 
-            width: 100%;
+   .imgGrid-container img {
+       position: absolute;
+       top: 0;
+       left: 0;
+       width: 100%;
+       height: 100%;
+       object-fit: cover; /* Memastikan gambar menutupi area tanpa mengubah rasio aslinya */
+       border-radius: 8px 8px 0 0; /* Agar sudut atas gambar melengkung sesuai card */
+   }
 
-            max-width: 400px; /* Set a maximum width if needed */
-            max-height: 400px; /* Set a maximum height if needed */
-        }
-    </style>
+   .card-block-info {
+       padding: 20px;
+   }
+
+   /* Sesuaikan ukuran gambar jika diperlukan */
+   .card-grid-2-image img {
+       max-width: 100%;
+       height: auto;
+   }
+</style>
     <section class="section-box-2">
         <div class="box-head-single none-bg">
             <div class="container">

@@ -30,6 +30,7 @@ Route::get('/contact', [ContactCotroller::class, 'contact'])->name('contact');
 
 
 
+
 // General Route
 Route::get('/fetch-upcoming-trainings', [GeneralController::class, 'fetchUpcomingTrainings'])->name('fetch-upcoming-trainings');
 Route::get('/fetch-upcoming-jobvacancy', [GeneralController::class, 'fetchUpcomingJobvacancy'])->name('fetch-upcoming-jobvacancy');

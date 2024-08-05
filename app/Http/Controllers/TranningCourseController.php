@@ -41,12 +41,13 @@ class TranningCourseController extends Controller
 
     public function detailCourse($id)
     {
-        $data['title'] = ' Detail Training / Course';;
+        
+        $data['title'] = ' Details Training';;
 
-        $data['listpersyaratan'] =  Dtc_Persyaratan_TrainingCourseModel::where('id_training_course_dtl',$id)->get();
-        $data['listmateri'] =  Dtc_Materi_TrainingCourseModel::where('id_training_course_dtl',$id)->get();
-        $data['listfasilitas']=  Dtc_Fasilitas_TrainingCourseModel::where('id_training_course_dtl',$id)->get();
-        $data['listfiles']=  dtc_File_TrainingCourseModel::where('id_training_course_dtl',$id)->get();
+        $data['listpersyaratan'] =  Dtc_Persyaratan_TrainingCourseModel::where('id_training_course_dtl',base64_decode($id))->get();
+        $data['listmateri'] =  Dtc_Materi_TrainingCourseModel::where('id_training_course_dtl',base64_decode($id))->get();
+        $data['listfasilitas']=  Dtc_Fasilitas_TrainingCourseModel::where('id_training_course_dtl',base64_decode($id))->get();
+        $data['listfiles']=  dtc_File_TrainingCourseModel::where('id_training_course_dtl',base64_decode($id))->get();
 
         $query = DB::table('dtc_training_course_detail')
             ->leftjoin('m_category_training_course', 'm_category_training_course.id', '=', 'dtc_training_course_detail.id_m_category_training_course') // Bergabung dengan tabel tipe_master
@@ -61,7 +62,8 @@ class TranningCourseController extends Controller
             );
 
         $whereData=$query->where('dtc_training_course_detail.status',1);
-        $data['getdataDetail']=$whereData->where('dtc_training_course_detail.id',$id)->first();
+        $data['getdataDetail']=$whereData->where('dtc_training_course_detail.id',base64_decode($id))->first();
+        //dd($data);
         return view('course.detailcourse', $data);
     }
 
@@ -227,11 +229,21 @@ class TranningCourseController extends Controller
             ->leftjoin('m_jenis_sertifikasi_training_course', 'm_jenis_sertifikasi_training_course.id', '=', 'dtc_training_course_detail.id_m_jenis_sertifikasi_training_course') // Bergabung dengan tabel ifg_master_tipe
             ->leftjoin('m_type_training_course', 'm_type_training_course.id', '=', 'dtc_training_course_detail.typeonlineoffile')
             ->leftjoin('m_provinsi', 'm_provinsi.id', '=', 'dtc_training_course_detail.id_provinsi')
+            ->leftJoin(DB::raw('(
+                SELECT * 
+                FROM dtc_file_training_course 
+                WHERE id IN (
+                    SELECT MIN(id) 
+                    FROM dtc_file_training_course 
+                    GROUP BY id_training_course_dtl
+                )
+            ) AS dtc_file_training_course'), 'dtc_file_training_course.id_training_course_dtl', '=', 'dtc_training_course_detail.id')
             ->select('dtc_training_course_detail.*',
                 'm_category_training_course.nama as category',
                 'm_jenis_sertifikasi_training_course.nama as cetificate_type',
-                'm_type_training_course.nama as typeonlineofline',
+                'm_type_training_course.nama as namaonlineofline',
                 'm_provinsi.nama as nama_provinsi',
+                'dtc_file_training_course.nama as image_path'
             );
 
         $whereData=$query->where('dtc_training_course_detail.status',1);

@@ -72,21 +72,10 @@
 
         <div class="container">
             <div class="row flex-row-reverse">
-                <!-- Item Training & News -->
-                <div class="col-lg-4 col-md-12 col-sm-12 col-12 float-right">
-                    <div class="sidebar-shadow sidebar-news-small">
-                        <h5 class="sidebar-title">Upcoming Training</h5>
-                        <div class="post-list-small" id="training-list"></div>
-                    </div>
-                    <div class="sidebar-shadow sidebar-news-small">
-                        <h5 class="sidebar-title">News</h5>
-                        <div class="post-list-small" id="news-list"> </div>
-                    </div>
-                </div>
-                <!-- End Training & News -->
+                
 
                 <!-- Page content -->
-                <div class="col-lg-5 col-md-12 col-sm-12 col-12 float-right">
+                <div class="col-lg-9 col-md-12 col-sm-12 col-12 float-right">
                     <div class="content-page">
                         <div class="box-filters-job mt-15 mb-10">
                             <div class="row">
@@ -276,7 +265,8 @@
         $(document).ready(function() {
 
             console.log('Document ready'); // Debugging line
-
+            let jobtitle = <?php echo json_encode($valuJobtitle); ?>;
+            let lokasi = <?php echo json_encode($valuLokasi); ?>;
 
             //PreviewemployeeStatus();
             PriviewfilterPlacement();
@@ -289,7 +279,8 @@
             //filterEducation();
             let currentSort = 'newest'; // Default sorting
 
-            function loadContent(page = 1, filters = {}, sortBy = currentSort) {
+            function loadContent(page = 1, filters = {jobtitle,lokasi}, sortBy = currentSort) {
+                console.log('Success filter:', filters),
                 $.ajax({
                     url: '/get-content-job-list',
                     method: 'GET',
@@ -299,7 +290,7 @@
                         sortBy: sortBy
                     },
                     success: function(response) {
-                        //console.log('Success response:', response); // Debugging line
+                         // Debugging line
                         $('.content-page .list-recent-jobs').html(response.content);
                         $('.content-page .paginations').html(response.pagination);
                         $('.content-page .showing').html(response.showing);
@@ -322,8 +313,10 @@
                 console.log('Sort by selected:', currentSort); // Debugging line
                 const filters = {
                    // jobtype: $('#filterJobtype').val(),
-                    location: $('#filterLocation').val(),
-                    jobtitle: $('#filterJobtitle').val(),
+                    // location: $('#filterLocation').val(),
+                    // jobtitle: $('#filterJobtitle').val(),
+                    jobtitle: (jobtitleval == '' ? $('#filterJobtitle').val() : jobtitleval),
+                    location: (lokasival == '' ? $('#filterLocation').val() : lokasival),
                      placement: $('.filterPlacement:checked').map(function() {
                         return $(this).val();
                     }).get(),
@@ -348,8 +341,10 @@
                 console.log('Pager number clicked, page:', page); // Debugging line
                 const filters = {
                     //jobtype: $('#filterJobtype').val(),
-                    location: $('#filterLocation').val(),
-                    jobtitle: $('#filterJobtitle').val(),
+                    // location: $('#filterLocation').val(),
+                    // jobtitle: $('#filterJobtitle').val(),
+                    jobtitle: (jobtitleval == '' ? $('#filterJobtitle').val() : jobtitleval),
+                    location: (lokasival == '' ? $('#filterLocation').val() : lokasival),
                     placement: $('.filterPlacement:checked').map(function() {
                         return $(this).val();
                     }).get(),
@@ -375,8 +370,10 @@
                 if (page) {
                     const filters = {
                        // jobtype: $('#filterJobtype').val(),
-                        location: $('#filterLocation').val(),
-                        jobtitle: $('#filterJobtitle').val(),
+                        // location: $('#filterLocation').val(),
+                        // jobtitle: $('#filterJobtitle').val(),
+                        jobtitle: (jobtitleval == '' ? $('#filterJobtitle').val() : jobtitleval),
+                        location: (lokasival == '' ? $('#filterLocation').val() : lokasival),
                         placement: $('.filterPlacement:checked').map(function() {
                             return $(this).val();
                         }).get(),
@@ -403,8 +400,10 @@
                 if (page) {
                     const filters = {
                         //jobtype: $('#filterJobtype').val(),
-                        location: $('#filterLocation').val(),
-                        jobtitle: $('#filterJobtitle').val(),
+                        // location: $('#filterLocation').val(),
+                        // jobtitle: $('#filterJobtitle').val(),
+                        jobtitle: (jobtitleval == '' ? $('#filterJobtitle').val() : jobtitleval),
+                        location: (lokasival == '' ? $('#filterLocation').val() : lokasival),
                         placement: $('.filterPlacement:checked').map(function() {
                             return $(this).val();
                         }).get(),

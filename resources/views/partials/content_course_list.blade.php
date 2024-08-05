@@ -6,7 +6,7 @@
                 <figure><img alt="jobhub" src="assets/imgs/page/job/digital.png" /></figure>
             </div>
             <div class="card-job-top--info">
-                <h6 class="card-job-top--info-heading"><a href="/detail-course/{{$value->id}}">{{$value->traning_name}}</a></h6>
+                <h6 class="card-job-top--info-heading"><a href="/detail-course/{{base64_encode($value->id)}}">{{$value->traning_name}}</a></h6>
                 <div class="row">
                     <div class="col-lg-7">
 

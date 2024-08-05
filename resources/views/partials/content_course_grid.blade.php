@@ -1,63 +1,77 @@
-@foreach ($data as $value)
+<style>
+    
+</style>
+@foreach($data as $value)
     <div class="col-lg-4 col-md-6">
-        <div class="card-grid-2 hover-up wow animate__animated animate__fadeIn" data-wow-delay=".0s">
+        <div class="card-grid-2 hover-up">
             <div class="text-center card-grid-2-image">
-                <div class="w3-content w3-display-container imgGrid-container">
-                    @php
-                        // Menyaring file yang sesuai dengan $value->id
-                        $filteredFiles = $listfiles->filter(function ($valFile) use ($value) {
-                            return $valFile->id_training_course_dtl == $value->id;
-                        });
-                    @endphp
-
-                    @forelse ($filteredFiles as $valFile)
-                        <div class="w3-display-container mySlides imgGrid">
-                            <img src="{{ asset('http://127.0.0.1:8081/storage/' . ($valFile->nama ?? '')) }}" style="width:100%" />
-                        </div>
-                    @empty
-                        <div class="imgGrid-container">
-                            <img class="imgGrid" src="assets/imgs/jobs/job-1.png" />
-                        </div>
-                    @endforelse
-
-                </div>
-                <label class="btn-urgent"> {{$value->typeonlineofline}}</label>
+                <a href="/detail-course/{{$value->id}}">
+                    <div class="imgGrid-container">
+                       
+                        <figure>
+                            {{-- <img  src="assets/imgs/jobs/job-1.png" alt="jobhub" /> --}}
+                            <a href="/detail-course/{{base64_encode($value->id)}}">
+                                <img class="imgGrid" src="{{ asset('http://127.0.0.1:8081/storage/' . ($value->image_path ?? '')) }}" />
+                            </a>
+                        </figure>
+                    </div>
+                </a>
             </div>
             <div class="card-block-info">
-                <div class="mt-15">
-                    <a href="/detail-course/{{$value->id}}">
-                        <span>{{$value->traning_name}}</span>
-                    </a>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <a href="/detail-course/{{base64_encode($value->id)}}"><h5 class="mt-20">{{$value->traning_name}}</h5></a>
+                    </div>
                 </div>
                 <div class="mt-15">
-                    <span class="card-time">Posted at : {{ \Carbon\Carbon::parse($value->startdate)->format('d M Y') }}</span>
-                    <span class="card-time">Closed at : {{ \Carbon\Carbon::parse($value->enddate)->format('d M Y') }}</span>
-                </div>
-                <div class="card-2-bottom mt-30">
+                    <h6 class="mt-20">{{$value->category}}</h6>
                     <div class="row">
-                        <div class="col-lg-12 col-12">
-                            <span class="card-text-price"> {{$value->registrationfee}} </span>
+                        
+                        
+                        <div class="col-lg-12  mt-15">
+                            <span class="fa fa-graduation-cap"></span> {{$value->cetificate_type}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <span class="card-location"> {{$value->nama_provinsi}},{{$value->lokasi}}</span>
+                        </div>
+                        <div class="col-lg-7  mt-15">
+                            
                         </div>
                     </div>
                 </div>
+                <div class="mt-15">
+                    <span class="card-time">  {{ \Carbon\Carbon::parse($value->startdate)->format('d M Y') }}</span>
+                </div>
+                {{-- <div class="row">
+                    
+                    <div class="col-lg-4  mt-15">
+                            <i class="fa fa-graduation-cap" style="font-size:15px"></i>  <span>{{$value->cetificate_type}}</span>
+                        
+                    </div>
+                    <div class="col-lg-6 mt-15">
+                        <span class="card-location"> {{$value->nama_provinsi}},{{$value->lokasi}}</span>
+                    </div>
+                </div> --}}
+               
+                <div class="card-2-bottom mt-10">
+                    <div class="row">
+                        <div class="col-lg-12 col-8">
+                           
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card-2-bottom mt-10">
+                    <div class="row">
+                        <div class="col-lg-2 col-sm-8 col-12">
+                            <a href="job-grid-2.html" class="btn btn-small background-blue-light mr-5">{{$value->namaonlineofline}}</a>
+                        </div>
+                        <div class="col-lg-10 col-sm-4 col-12 text-lg-end d-lg-block d-none">
+                            <span class="card-text-price"> {{$value->registrationfee}}</span></a>
+                        </div>
+                    </div>
+                    
+                </div>
+                
             </div>
         </div>
     </div>
 @endforeach
-
-<script>
-    var myIndex = 0;
-    carousel();
-
-    function carousel() {
-        var i;
-        var x = document.querySelectorAll(".mySlides");
-        for (i = 0; i < x.length; i++) {
-            x[i].style.display = "none";  
-        }
-        myIndex++;
-        if (myIndex > x.length) {myIndex = 1}    
-        x[myIndex-1].style.display = "block";  
-        setTimeout(carousel, 2000); // Change image every 2 seconds
-    }
-</script>

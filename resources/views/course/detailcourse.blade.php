@@ -6,14 +6,61 @@
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <style>
 .mySlides {display:none;}
+
+        .copy-button:hover {
+            background-color: #45a049;
+        }
+        .popup {
+            display: none; /* Initially hidden */
+            position: absolute;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 10px;
+            border-radius: 5px;
+            z-index: 1000;
+            top: 485px !important; /* Position it directly below the button */
+            left: 0; /* Align with the left edge of the button */
+            width: max-content; /* Adjust width to fit content */
+        }
+        .popup.show {
+            display: block;
+        }
+        .single-image-feature {
+            max-width: 100%; /* Ensure container scales with screen size */
+        }
+
+        .w3-content {
+            position: relative;
+            max-width: 600px; /* Set a max-width for the container */
+            margin: auto;
+        }
+
+        .w3-display-container {
+            position: relative;
+            width: 100%; /* Ensure container is responsive */
+            height: 400px; /* Set a fixed height for the images */
+            overflow: hidden;
+        }
+
+        .mySlides {
+            width: 100%;
+            height: 100%;
+        }
+
+        .mySlides img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Ensures the image covers the container */
+        }
 </style>
     <section class="section-box">
         <div class="box-head-single">
             <div class="container">
                 <h3>{{$getdataDetail->traning_name}}</h3>
                 <ul class="breadcrumbs">
-                    <li><a href="#">Browse Training By Category</a></li>
-                    <li>Detail Training</li>
+                    <li><a href="#">Training</a></li>
+                    <li>{{$title}}</li>
                 </ul>
             </div>
         </div>
@@ -23,19 +70,13 @@
             <div class="row">
                 <div class="col-lg-8 col-md-12 col-sm-12 col-12">
                     <div class="single-image-feature">
-                       
-                        
                         <div class="w3-content w3-display-container">
                             @foreach ($listfiles as $valFile)
                                 <div class="w3-display-container mySlides">
                                     <img  src="{{ asset('http://127.0.0.1:8081/storage/' . ($valFile->nama ?? '')) }}" style="width:100%" />
-                                
+                                        
                                 </div>
                             @endforeach
-                           
-                            {{-- <button class="w3-button w3-display-left w3-black" onclick="plusDivs(-1)">&#10094;</button>
-                            <button class="w3-button w3-display-right w3-black" onclick="plusDivs(1)">&#10095;</button> --}}
-                            
                         </div>
                     </div>
                     <div class="content-single">
@@ -67,21 +108,17 @@
                 </div>
                 <div class="col-lg-4 col-md-12 col-sm-12 col-12 pl-40 pl-lg-15 mt-lg-30">
                     <div class="sidebar-shadow">
-                        <div class="sidebar-heading">
-                            <div class="avatar-sidebar">
-                                <figure><img alt="jobhub" src="{{ asset('assets/imgs/page/job-single/avatar-job.png')}}" /></figure>
-                                <div class="sidebar-info">
-                                    <span class="sidebar-company">AliStudio, Inc</span>
-                                    <span class="sidebar-website-text">alithemes.com</span>
-
-                                </div>
-                            </div>
-                        </div>
+                        
 
 
                         <div class="text-start mt-20">
+                            <input type="text" hidden id="textToCopy" value="http://127.0.0.1:8000/detail-course/{{base64_encode($getdataDetail->id)}}" readonly>
                             <a href="{{$getdataDetail->link_pendaftaran}}" class="btn btn-default mr-10">Apply now</a>
-                            <a href="#" class="btn btn-default mr-10">Share</a>
+                            <a href="#" class="btn btn-default mr-10" onclick="copyToClipboard(event)">Share</a>
+                            
+                            <div id="popup" class="popup">
+                                <p>Tautan telah disalin</p>
+                            </div>
                         </div>
                         <div class="sidebar-list-job">
                             <ul>
@@ -170,6 +207,32 @@
           if (myIndex > x.length) {myIndex = 1}    
           x[myIndex-1].style.display = "block";  
           setTimeout(carousel, 2000); // Change image every 2 seconds
+        }
+        function copyToClipboard(event) {
+            event.preventDefault(); // Prevent default link behavior
+
+            // Get the text field
+            var copyText = document.getElementById("textToCopy").value;
+            var popup = document.getElementById("popup");
+
+            // Use the Clipboard API to copy text
+            navigator.clipboard.writeText(copyText).then(function() {
+                // Show the popup
+                popup.classList.add("show");
+
+                // Position the popup
+                var button = event.target; // Get the clicked button
+                var rect = button.getBoundingClientRect(); // Get button's position
+                popup.style.top = (rect.bottom + window.scrollY) + 'px'; // Position below the button
+                popup.style.left = (rect.left + window.scrollX) + 'px'; // Align with the button
+
+                // Hide the popup after 3 seconds
+                setTimeout(function() {
+                    popup.classList.remove("show");
+                }, 3000); // 3000 milliseconds = 3 seconds
+            }).catch(function(error) {
+                console.error('Gagal menyalin teks: ', error);
+            });
         }
     </script>
     {{-- <script>

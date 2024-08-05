@@ -80,21 +80,10 @@
 
         <div class="container">
             <div class="row flex-row-reverse">
-                <!-- Item Training & News -->
-                <div class="col-lg-4 col-md-12 col-sm-12 col-12 float-right">
-                    <div class="sidebar-shadow sidebar-news-small">
-                        <h5 class="sidebar-title">Upcoming Job</h5>
-                        <div class="post-list-small" id="jobvacancy-list"></div>
-                    </div>
-                    <div class="sidebar-shadow sidebar-news-small">
-                        <h5 class="sidebar-title">News</h5>
-                        <div class="post-list-small" id="news-list"> </div>
-                    </div>
-                </div>
-                <!-- End Training & News -->
+                
 
                 <!-- Page content -->
-                <div class="col-lg-5 col-md-12 col-sm-12 col-12 float-right">
+                <div class="col-lg-9 col-md-12 col-sm-12 col-12 float-right">
                     <div class="content-page">
                         <div class="box-filters-job mt-15 mb-10">
                             <div class="row">

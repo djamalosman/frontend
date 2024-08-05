@@ -9,8 +9,13 @@ use Illuminate\Support\Facades\DB;
 
 class JobVacancyController extends Controller
 {
-    public function JobList()
+    public function JobList(Request $request)
     {
+        $filters = $request->all();
+        //dd($filters);
+        $data['valuJobtitle'] = $filters['jobtitle'] ?? null;
+        $data['valuLokasi'] = $filters['provinsi'] ?? null;
+
         $data['title'] = 'Job Vacancy';
 
         $dataCount = JobVacancyDetailModel::where('status', 1)->get();
@@ -25,7 +30,7 @@ class JobVacancyController extends Controller
 
     }
     
-    public function JobGrid()
+    public function JobGrid(Request $request)
     {
         $data['title'] = 'Job Vacancy';
 
@@ -43,7 +48,7 @@ class JobVacancyController extends Controller
 
     public function detailJob($id)
     {
-        $data['title'] = 'Job Vacancy Details';
+        $data['title'] = 'Details Jobs';
         $query = DB::table('djv_job_vacancy_detail')
             ->leftJoin('m_employee_status', 'djv_job_vacancy_detail.id_m_employee_status', '=', 'm_employee_status.id')
             ->leftJoin('m_work_location', 'm_work_location.id', '=', 'djv_job_vacancy_detail.id_m_work_location')
@@ -52,6 +57,7 @@ class JobVacancyController extends Controller
             ->leftJoin('m_sector', 'm_sector.id', '=', 'djv_job_vacancy_detail.id_m_sector')
             ->leftJoin('m_education', 'm_education.id', '=', 'djv_job_vacancy_detail.id_m_education')
             ->leftJoin('m_experience_level', 'm_experience_level.id', '=', 'djv_job_vacancy_detail.id_m_experience_level')
+            ->leftjoin('m_provinsi', 'm_provinsi.id', '=', 'djv_job_vacancy_detail.id_provinsi')
             ->select(
                 'djv_job_vacancy_detail.*',
                 'm_employee_status.nama as job_type',
@@ -60,9 +66,10 @@ class JobVacancyController extends Controller
                 'm_salary.nama as salary',
                 'm_sector.nama as sector',
                 'm_education.nama as education',
-                'm_experience_level.nama as name_experience_level'
+                'm_experience_level.nama as name_experience_level',
+                'm_provinsi.nama as provinsi'
             );
-        $data['getdataDetail']=$query->where('djv_job_vacancy_detail.id',$id)->first();
+        $data['getdataDetail']=$query->where('djv_job_vacancy_detail.id',base64_decode($id))->first();
         return view('jobvacancy.detailjob', $data);
     }
 
@@ -277,6 +284,7 @@ class JobVacancyController extends Controller
             ->leftJoin('m_sector', 'm_sector.id', '=', 'djv_job_vacancy_detail.id_m_sector')
             ->leftJoin('m_education', 'm_education.id', '=', 'djv_job_vacancy_detail.id_m_education')
             ->leftJoin('m_experience_level', 'm_experience_level.id', '=', 'djv_job_vacancy_detail.id_m_experience_level')
+            ->leftJoin('m_provinsi', 'm_provinsi.id', '=', 'djv_job_vacancy_detail.id_provinsi')
             ->select(
                 'djv_job_vacancy_detail.*',
                 'm_employee_status.nama as nama_status',
@@ -285,7 +293,8 @@ class JobVacancyController extends Controller
                 'm_salary.nama as salary',
                 'm_sector.nama as sector',
                 'm_education.nama as education',
-                'm_experience_level.nama as name_experience_level'
+                'm_experience_level.nama as name_experience_level',
+                'm_provinsi.nama as namaprovinsi'
             );
         $whereData=$query->where('djv_job_vacancy_detail.status',1);
 
