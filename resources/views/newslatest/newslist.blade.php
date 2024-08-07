@@ -38,7 +38,7 @@
                                         </select>
                                         <i class="fi-rr-briefcase"></i>
                                     </div>
-                                   
+
                                 </div>
                                 <div class="box-button-find">
                                     <button  id="applyFilterBtn"  class="btn btn-default float-right">Find Now</button>
@@ -50,98 +50,36 @@
             </div>
         </div>
     </section>
-
-    <section class="section-box mt-80">
-
+    <div class="archive-header pt-50 pb-50">
         <div class="container">
-            <div class="row flex-row-reverse">
-                <!-- Item Training & News -->
-                <div class="col-lg-4 col-md-12 col-sm-12 col-12 float-right">
-                    <div class="sidebar-shadow sidebar-news-small">
-                        <h5 class="sidebar-title">Upcoming Training</h5>
-                        <div class="post-list-small" id="training-list"></div>
-                    </div>
-                    <div class="sidebar-shadow sidebar-news-small">
-                        <h5 class="sidebar-title">Upcoming Jobs</h5>
-                        <div class="post-list-small" id="news-list"> </div>
-                    </div>
+            <h3 class="mb-30 text-center w-75 mx-auto">
+                Relevant news and more for you. Welcome to our blog
+            </h3>
+            <div class="text-center">
+                <div class="sub-categories">
+                    <a href="#" class="btn btn-tags-sm mb-10 mr-5">Recruitment</a>
+                    <a href="#" class="btn btn-tags-sm mb-10 mr-5">Branding</a>
+                    <a href="#" class="btn btn-tags-sm mb-10 mr-5">Workplage</a>
+                    <a href="#" class="btn btn-tags-sm mb-10 mr-5">Job Tips</a>
+                    <a href="#" class="btn btn-tags-sm mb-10 mr-5">Contributors</a>
                 </div>
-                <!-- End Training & News -->
-
-                <!-- Page content -->
-                <div class="col-lg-5 col-md-12 col-sm-12 col-12 float-right">
-                    <div class="content-page">
-                        <div class="box-filters-job mt-15 mb-10">
-                            <div class="row">
-                                <div class="col-lg-5" >
-                                    <div class="showing"></div>
-
-                                </div>
-                                <div class="col-lg-7 text-lg-end mt-sm-15">
-                                    <div class="display-flex2">
-                                        <div class="dropdown dropdown-sort">
-                                            <button class="btn dropdown-toggle" type="button" id="dropdownSort" data-bs-toggle="dropdown" aria-expanded="false" data-bs-display="static">
-                                                <span id="currentSort">Newest Post</span> <i class="fi-rr-angle-small-down"></i>
-                                            </button>
-                                            <ul class="dropdown-menu dropdown-menu-light" aria-labelledby="dropdownSort">
-                                                <li><a class="dropdown-item" href="#" data-sort="newest">Newest Post</a></li>
-                                                <li><a class="dropdown-item" href="#" data-sort="oldest">Oldest Post</a></li>
-                                                <li><a class="dropdown-item" href="#" data-sort="rating">Rating Post</a></li>
-                                            </ul>
-                                        </div>
-                                        <div class="box-view-type">
-                                            <a href="{{route('news-list')}}" class="view-type"><img src="assets/imgs/theme/icons/icon-grid.svg" alt="jobhub" /></a>
-                                            <a href="{{route('news-grid')}}" class="view-type"><img src="assets/imgs/theme/icons/icon-list.svg" alt="jobhub" /></a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="job-list-list mb-15">
-                            <div class="list-recent-jobs">
-                                <!-- Value job --><!-- End Value job -->
-                            </div>
-                        </div>
-
-                        <!-- pagination -->
-                        <div class="paginations">
-                            <ul class="pager">
-
-                            </ul>
-                        </div>
-                        <!-- End pagination -->
-                    </div>
-                </div>
-                <!-- End page content -->
-
-                <!-- Filter -->
-                <div class="col-lg-3 col-md-12 col-sm-12 col-12">
-                    <div class="sidebar-shadow none-shadow mb-30">
-                        <h5 class="sidebar-title">Filters</h5>
-                        <div class="sidebar-filters">
-                            
-                            <div class="filter-block mb-30">
-                                <h5 class="medium-heading mb-15">Jenis Berita</h5>
-                                <div class="form-group select-style select-style-icon">
-                                    <select id="jenisBeritaSelect" class="form-control form-icons select-active">
-                                        <!-- Options will be loaded here via AJAX  -->
-                                    </select>
-                                    <i class="fi-rr-briefcase"></i>
-                                </div>
-                            </div>
-                            <div class="buttons-filter">
-                                <button id="applyFilterBtnBottom" class="btn btn-default">Apply filter</button>
-                                <button id="resetFilterBtn" class="btn">Reset filter</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- End Filter -->
-
             </div>
         </div>
-    </section>
+    </div>
+    <div class="post-loop-grid">
+        <div class="container">
+            <div class="content-page">
+                <div class="row pr-15 pl-15  list-recent-jobs">
 
+                </div>
+                <div class="paginations">
+                    <ul class="pager">
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
     <section class="section-box mt-50 mb-60">
         <div class="container">
             <div class="box-newsletter">
@@ -164,7 +102,7 @@
 
     <script>
 
-        
+
 
         $(document).ready(function() {
             // Mengambil data upcoming trainings
@@ -189,7 +127,7 @@
         $(document).ready(function() {
 
             console.log('Document ready'); // Debugging line
-        
+
             loadJenisBerita();
             loadJenisBeritaTop();
             //filterEducation();
@@ -297,7 +235,7 @@
                 $('#filterJobtitle').val('');
                 $('#jenisBeritaSelect').val('');
                 $('#jenisBeritaTop').val('');
-                
+
                 console.log('Reset filter button clicked'); // Debugging line
                 loadContent(1, {}, currentSort); // Fetch content without filters and current sort
             });

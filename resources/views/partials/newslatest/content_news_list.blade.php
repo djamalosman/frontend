@@ -1,39 +1,40 @@
+<style>
+    .post-title {
 
+        font-weight: bold;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        line-height: 2.8;
+        /* Adjust this value if necessary */
+        height: 4em;
+    }
+</style>
 @foreach ($data as $value)
+    <div class="col-lg-4 mb-30">
+        <div class="card-blog-1 hover-up wow animate__animated animate__fadeIn" data-wow-delay=".0s">
+            <figure class="post-thumb mb-15">
+                <a href="blog-single.html">
+                    <img alt="jobhub" src="assets/imgs/blog/blog-thumb-3.png" />
+                </a>
+            </figure>
+            <div class="card-block-info">
 
-<div class="card-job hover-up wow animate__animated animate__fadeIn">
-    <div class="card-job-top">
-        <div class="card-job-top--image">
-            <a href="/detail-job/{{$value->id}}">
-                <figure><img alt="jobhub" src="{{ asset('assets/imgs/page/job/digital.png')}}" /></figure>
-            </a>
-        </div>
-        <div class="card-job-top--info">
-
-            <h6 class="card-job-top--info-heading"><a href="/detail-news/{{$value->id}}">{{ $value->title }}</a></h6>
-            
-        </div>
-        <div class="card-job-top--info">
-            <div class="row">
-                <div class="col-lg-12">
-
-                    <span class="card-job-top--post-time text-sm"><i class="fi-rr-clock"></i>Posted at : {{ \Carbon\Carbon::parse($value->implementation_date)->format('d M Y') }}</span>
-                </div>
-            </div>
-        </div>
-        <div class="card-job-bottom mt-25">
-            <div class="row">
-                <div class="col-lg-9 col-sm-8 col-12">
-                    <a href="job-grid.html" class="btn btn-small background-urgent btn-pink mr-5"><span class="card-job-top--price">{{$value->jenisBerita}}<span></span></span></a>
-                </div>
-                <div class="col-lg-3 col-sm-4 col-12 text-lg-end d-lg-block d-none">
-                    <span><img src="assets/imgs/theme/icons/shield-check.svg" alt="jobhub"></span>
-                    <span class="ml-5"><img src="assets/imgs/theme/icons/bookmark.svg" alt="jobhub"></span>
+                <h3 class="post-title small mb-15 "><a href="/detail-news/{{$value->id}}">{{$value->title}}</a></h3>
+                <div class="card-2-bottom mt-30">
+                    <div class="d-flex align-items-center justify-content-between">
+                        <div class="keep-reading">
+                            <a href="/detail-news/{{$value->id}}" class="btn btn-border btn-brand-hover">{{$value->jenisBerita}}</a>
+                        </div>
+                        <div class="tags text-lg-end">
+                            <span class="card-time">Posted at : {{ \Carbon\Carbon::parse($value->implementation_date)->format('d M Y') }}</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-    
 
-</div>
 @endforeach

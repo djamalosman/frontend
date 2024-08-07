@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html class="no-js" lang="en">
 
     <head>
         <meta charset="UTF-8">
@@ -26,4 +26,3 @@
         @stack('after-script')
     </body>
 </html>
-

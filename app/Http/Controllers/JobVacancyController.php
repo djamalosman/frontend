@@ -16,7 +16,7 @@ class JobVacancyController extends Controller
         $data['valuJobtitle'] = $filters['jobtitle'] ?? null;
         $data['valuLokasi'] = $filters['provinsi'] ?? null;
 
-        $data['title'] = 'Job Vacancy';
+        $data['title'] = 'Jobs';
 
         $dataCount = JobVacancyDetailModel::where('status', 1)->get();
         $data['CountJob'] = $dataCount->count();
@@ -29,10 +29,10 @@ class JobVacancyController extends Controller
        return view('jobvacancy.joblist', $data);
 
     }
-    
+
     public function JobGrid(Request $request)
     {
-        $data['title'] = 'Job Vacancy';
+        $data['title'] = 'Jobs';
 
         $dataCount = JobVacancyDetailModel::where('status', 1)->get();
         $data['CountJob'] = $dataCount->count();
@@ -136,7 +136,20 @@ class JobVacancyController extends Controller
         return response()->json($filtemployeeStatus);
     }
 
-    
+    public function SidebarJobvacancy()
+    {
+        $query = DB::table('dtc_training_course_detail')
+            ->leftjoin('m_category_training_course', 'm_category_training_course.id', '=', 'dtc_training_course_detail.id_m_category_training_course')
+            ->leftjoin('m_jenis_sertifikasi_training_course', 'm_jenis_sertifikasi_training_course.id', '=', 'dtc_training_course_detail.id_m_jenis_sertifikasi_training_course')
+            ->leftjoin('m_type_training_course', 'm_type_training_course.id', '=', 'dtc_training_course_detail.typeonlineoffile')
+            ->select('dtc_training_course_detail.*',
+                'm_category_training_course.nama as category',
+                'm_jenis_sertifikasi_training_course.nama as cetificate_type',
+                'm_type_training_course.nama as typeonlineofline');
+        $trainings = $query->where('dtc_training_course_detail.status',1)->orderBy('dtc_training_course_detail.created_at', 'desc')->limit(3)->get();
+
+        return view('partials.jobs.sidebar_jobs', compact('trainings'))->render();
+    }
 
     public function getContentJobList(Request $request)
     {
@@ -159,12 +172,13 @@ class JobVacancyController extends Controller
                 'm_salary.nama as salary',
                 'm_sector.nama as sector',
                 'm_education.nama as education',
-                'm_experience_level.nama as name_experience_level'
+                'm_experience_level.nama as name_experience_level',
+                'm_provinsi.nama as namaprovinsi'
             );
         $whereData=$query->where('djv_job_vacancy_detail.status',1);
 
        // dd($filters);
-       
+
         // filter job title
         if (!empty($filters['jobtitle']) && is_array($filters['jobtitle'])) {
             $whereData->whereIn('djv_job_vacancy_detail.job_title', $filters['jobtitle']);
@@ -265,7 +279,7 @@ class JobVacancyController extends Controller
         ])->render();
 
         return response()->json([
-            'content' => view('partials.content_job_list', ['data' => $data])->render(),
+            'content' => view('partials.jobs.content_job_list', ['data' => $data])->render(),
             'pagination' => view('partials.pagination', ['data' => $data])->render(),
             'showing' => $showing,
             'sort_and_view' => $sortAndView
@@ -392,9 +406,9 @@ class JobVacancyController extends Controller
         ])->render();
 
         //$listfiles = JobFileModel::orderBy('nama', 'asc')->get();
-            
+
         return response()->json([
-            'content' => view('partials.content_job_grid', ['data' => $data])->render(),
+            'content' => view('partials.jobs.content_job_grid', ['data' => $data])->render(),
             'pagination' => view('partials.pagination', ['data' => $data])->render(),
             'showing' => $showing,
             'sort_and_view' => $sortAndView
@@ -412,7 +426,6 @@ class JobVacancyController extends Controller
         //     'sort_and_view' => $sortAndView
         // ]);
     }
-
 
 
 }

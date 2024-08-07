@@ -116,6 +116,9 @@
     <section class="section-box mt-80">
         <div class="container">
             <div class="row flex-row-reverse">
+                <!-- Item Training & News -->
+
+
                 <!-- Page content -->
                 <div class="col-lg-9 col-md-12 col-sm-12 col-12 float-right">
                     <div class="content-page">
@@ -286,7 +289,7 @@
         $(document).ready(function() {
             // Mengambil data upcoming trainings
             $.ajax({
-                url: '/fetch-upcoming-trainings',
+                url: '/fetch-upcoming-jobs-sidebar',
                 method: 'GET',
                 success: function(response) {
                     $('#training-list').html(response);
@@ -294,13 +297,13 @@
             });
 
             // Mengambil data news
-            $.ajax({
-                url: '/fetch-upcoming-news',
-                method: 'GET',
-                success: function(response) {
-                    $('#news-list').html(response);
-                }
-            });
+            // $.ajax({
+            //     url: '/fetch-upcoming-news',
+            //     method: 'GET',
+            //     success: function(response) {
+            //         $('#news-list').html(response);
+            //     }
+            // });
         });
 
         $(document).ready(function() {
@@ -505,6 +508,13 @@
                 $('.filterexperiencelevel').prop('checked', false);
                 console.log('Reset filter button clicked'); // Debugging line
                 loadContent(1, {}, currentSort); // Fetch content without filters and current sort
+                PreviewemployeeStatus();
+                PriviewfilterPlacement();
+                filterExperienceLevel();
+                loadSalaryRanges();
+                loadEmployeeStatusTop();
+                loadProvinsisTop();
+                loadSalaryRangesTop();
             });
         });
 

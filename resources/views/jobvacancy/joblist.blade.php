@@ -72,10 +72,18 @@
 
         <div class="container">
             <div class="row flex-row-reverse">
-                
 
+                <!-- Item Training & News -->
+                <div class="col-lg-4 col-md-12 col-sm-12 col-12 float-right">
+                    <div class="sidebar-shadow sidebar-news-small">
+                        <h5 class="sidebar-title">Upcoming Training</h5>
+                        <div class="post-list-small" id="training-list"></div>
+                    </div>
+
+                </div>
+                <!-- End Training & News -->
                 <!-- Page content -->
-                <div class="col-lg-9 col-md-12 col-sm-12 col-12 float-right">
+                <div class="col-lg-5 col-md-12 col-sm-12 col-12 float-right">
                     <div class="content-page">
                         <div class="box-filters-job mt-15 mb-10">
                             <div class="row">
@@ -134,7 +142,7 @@
                             </div>
                             <div class="filter-block mb-30">
                                 <h5 class="medium-heading mb-15">Job type</h5>
-                                
+
                                 <div class="form-group select-style select-style-icon">
                                     <select id="filterEmployeeStatus" class="form-control form-icons select-active">
                                         <!-- Options will be loaded here via AJAX -->
@@ -245,7 +253,7 @@
         $(document).ready(function() {
             // Mengambil data upcoming trainings
             $.ajax({
-                url: '/fetch-upcoming-trainings',
+                url: '/fetch-upcoming-jobs-sidebar',
                 method: 'GET',
                 success: function(response) {
                     $('#training-list').html(response);
@@ -253,13 +261,13 @@
             });
 
             // Mengambil data news
-            $.ajax({
-                url: '/fetch-upcoming-news',
-                method: 'GET',
-                success: function(response) {
-                    $('#news-list').html(response);
-                }
-            });
+            // $.ajax({
+            //     url: '/fetch-upcoming-news',
+            //     method: 'GET',
+            //     success: function(response) {
+            //         $('#news-list').html(response);
+            //     }
+            // });
         });
 
         $(document).ready(function() {
@@ -484,6 +492,13 @@
                 $('.filterexperiencelevel').prop('checked', false);
                 console.log('Reset filter button clicked'); // Debugging line
                 loadContent(1, {}, currentSort); // Fetch content without filters and current sort
+                PriviewfilterPlacement();
+                filterExperienceLevel();
+                loadSalaryRanges();
+                loadEmployeeStatusTop();
+                loadProvinsisTop();
+                loadSalaryRangesTop();
+                loadEmployeeStatusLeft();
             });
         });
 
@@ -546,9 +561,9 @@
         }
 
 
-        
 
-        
+
+
 
         function PriviewfilterPlacement() {
             const filters = {

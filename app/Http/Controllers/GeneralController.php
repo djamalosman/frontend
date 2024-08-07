@@ -18,11 +18,11 @@ class GeneralController extends Controller
         ->leftJoin('m_type_training_course', 'm_type_training_course.id', '=', 'dtc_training_course_detail.typeonlineoffile')
         ->leftJoin('m_provinsi', 'm_provinsi.id', '=', 'dtc_training_course_detail.id_provinsi')
         ->leftJoin(DB::raw('(
-            SELECT * 
-            FROM dtc_file_training_course 
+            SELECT *
+            FROM dtc_file_training_course
             WHERE id IN (
-                SELECT MIN(id) 
-                FROM dtc_file_training_course 
+                SELECT MIN(id)
+                FROM dtc_file_training_course
                 GROUP BY id_training_course_dtl
             )
         ) AS dtc_file_training_course'), 'dtc_file_training_course.id_training_course_dtl', '=', 'dtc_training_course_detail.id')
@@ -38,9 +38,9 @@ class GeneralController extends Controller
         // ->orderBy('dtc_training_course_detail.created_at', 'desc')
         // ->limit(6)
         // ->get();
-    
-        $trainings = $query->where('dtc_training_course_detail.status',1)->orderBy('dtc_training_course_detail.created_at', 'desc')->limit(6)->get();
-        
+
+        $trainings = $query->orderBy('dtc_training_course_detail.created_at', 'desc')->limit(6)->get();
+
         return view('partials.upcoming_trainings', compact('trainings'))->render();
     }
 
@@ -66,8 +66,8 @@ class GeneralController extends Controller
                 'm_experience_level.nama as name_experience_level',
                 'm_provinsi.nama as namaprovinsi'
             );
-        $job_vacancy = $query->where('djv_job_vacancy_detail.status',1)->orderBy('djv_job_vacancy_detail.created_at', 'desc')->limit(6)->get();
-        
+        $job_vacancy = $query->orderBy('djv_job_vacancy_detail.created_at', 'desc')->limit(6)->get();
+
         return view('partials.upcoming_job_vacancy', compact('job_vacancy'))->render();
     }
 

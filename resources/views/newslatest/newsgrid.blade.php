@@ -38,7 +38,7 @@
                                         </select>
                                         <i class="fi-rr-briefcase"></i>
                                     </div>
-                                
+
                                 </div>
                                 <div class="box-button-find">
                                     <button  id="applyFilterBtn"  class="btn btn-default float-right">Find Now</button>
@@ -104,7 +104,7 @@
                     <div class="sidebar-shadow none-shadow mb-30">
                         <h5 class="sidebar-title">Filters</h5>
                         <div class="sidebar-filters">
-                            
+
                             <div class="filter-block mb-30">
                                 <h5 class="medium-heading mb-15">Jenis Berita</h5>
                                 <div class="form-group select-style select-style-icon">
@@ -152,7 +152,7 @@
         $(document).ready(function() {
 
             console.log('Document ready'); // Debugging line
-        
+
             loadJenisBerita();
             loadJenisBeritaTop();
             //filterEducation();
@@ -260,7 +260,7 @@
                 $('#filterJobtitle').val('');
                 $('#jenisBeritaSelect').val('');
                 $('#jenisBeritaTop').val('');
-                
+
                 console.log('Reset filter button clicked'); // Debugging line
                 loadContent(1, {}, currentSort); // Fetch content without filters and current sort
             });

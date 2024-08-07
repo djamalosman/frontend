@@ -1,10 +1,25 @@
+<style>
+    .post-title {
+
+        font-weight: bold;
+
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        line-height: 2.8;
+        /* Adjust this value if necessary */
+        height: 2em;
+    }
+</style>
 @foreach($job_vacancy as $value)
 <div class="col-lg-4 col-md-6">
     <div class="card-grid-2 hover-up">
         <div class="text-center card-grid-2-image">
             <a href="job-single.html">
                 <div class="imgGrid-container">
-                       
+
                     <figure>
                         {{-- <img  src="assets/imgs/jobs/job-1.png" alt="jobhub" /> --}}
                         <a href="/detail-job/{{base64_encode($value->id)}}">
@@ -14,7 +29,7 @@
                 </div>
             </a>
         </div>
-        
+
         <div class="card-block-info">
             <div class="row">
                 <div class="col-lg-12 col-6">
@@ -23,14 +38,15 @@
                     </a>
                 </div>
             </div>
-            <h5 class="mt-20"><a href="/detail-job/{{base64_encode($value->id)}}">{{$value->job_title}}</a></h5>
+            <h5 class="mt-20  post-title"><a href="/detail-job/{{base64_encode($value->id)}}">{{$value->job_title}}</a></h5>
             <div class="mt-15">
                 <span class="fi-rr-briefcase"> {{$value->nama_status}}</span>&nbsp;&nbsp;&nbsp;
-                
+
             </div>
             <div class="mt-15">
-                <span class="fa fa-graduation-cap"></span>{{$value->education}} &nbsp;&nbsp;&nbsp;
                 <span class="fi-rr-briefcase"> {{$value->sector}}</i></span>&nbsp;&nbsp;&nbsp;
+                <span class="fa fa-graduation-cap"></span>{{$value->education}} &nbsp;&nbsp;&nbsp;
+
                 <span class="card-time"> {{$value->name_experience_level}}</span>
             </div>
             <div class="mt-15">
@@ -40,13 +56,13 @@
             <div class="mt-15">
                 <span class="card-time">Closed at : {{ \Carbon\Carbon::parse($value->close_date)->format('d M Y') }}</span>
             </div>
+
             <div class="card-2-bottom mt-30">
                 <div class="row">
-                    <div class="col-lg-2 col-8">
-                        
-                    </div>
-                    <div class="col-lg-10 col-4 text-end">
-                        <span class="card-text-price"> Rp {{$value->salary}}<span>/{{$value->fee}}</span> </span>
+
+                    <div class="col-lg-12 col-12 text-end">
+                        <span class="card-text-price">Rp {{$value->salary}}<span>/{{$value->fee}}</span> </span>
+
                     </div>
                 </div>
             </div>

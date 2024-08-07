@@ -23,15 +23,38 @@
         .popup.show {
             display: block;
         }
+    .single-image-feature {
+        max-width: 100%; /* Ensure container scales with screen size */
+    }
+
+    .w3-content {
+        position: relative;
+        max-width: 600px; /* Set a max-width for the container */
+        margin: auto;
+    }
+
+    .w3-display-container {
+        position: relative;
+        width: 100%; /* Ensure container is responsive */
+        height: 400px; /* Set a fixed height for the images */
+        overflow: hidden;
+    }
+
+    .mySlides {
+        width: 100%;
+        height: 100%;
+    }
+
+    .mySlides img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover; /* Ensures the image covers the container */
+    }
 </style>
     <section class="section-box">
         <div class="box-head-single">
             <div class="container">
-                <h3>{{$getdataDetail->job_title}}</h3>
-                <ul class="breadcrumbs">
-                    <li><a href="#">Jobs</a></li>
-                    <li>{{$title}}</li>
-                </ul>
+                <h3>{{$getdataDetail->companyName}} </h3>
             </div>
         </div>
     </section>
@@ -40,9 +63,13 @@
             <div class="row">
                 <div class="col-lg-8 col-md-12 col-sm-12 col-12">
                     <div class="single-image-feature">
-                        <figure><img alt="jobhub" src="{{ asset('assets/imgs/page/job-single/img-job-feature.png')}}" class="img-rd-15" />
-                        </figure>
+                        <div class="w3-content w3-display-container">
+                            <div class="w3-display-container mySlides">
+                                <img class="img-rd-15" src="{{ asset('http://127.0.0.1:8081/storage/' . ($getdataDetail->file ?? '')) }}" />
+                            </div>
+                        </div>
                     </div>
+                    <h4>{{$getdataDetail->job_title}} </h4>
                     <div class="content-single">
                         <h5>Jobs description :</h5>
                         <p>
@@ -62,18 +89,11 @@
                 </div>
                 <div class="col-lg-4 col-md-12 col-sm-12 col-12 pl-40 pl-lg-15 mt-lg-30">
                     <div class="sidebar-shadow">
-                        <div class="sidebar-heading">
-                            <div class="avatar-sidebar">
-                                <h5><span class="sidebar-company">{{$getdataDetail->companyName}}</span></h5>
-                            </div>
-                        </div>
-
-
                         <div class="text-start mt-20">
                             <input type="text" hidden id="textToCopy" value="http://127.0.0.1:8000/detail-job/{{base64_encode($getdataDetail->id)}}" readonly>
                             <a href="{{$getdataDetail->linkpendaftaran}}" class="btn btn-default mr-10">Apply now</a>
                             <a href="#" class="btn btn-default mr-10" onclick="copyToClipboard(event)">Share</a>
-                            
+
                             <div id="popup" class="popup">
                                 <p>Tautan telah disalin</p>
                             </div>
@@ -101,7 +121,7 @@
                                         <strong class="small-heading">{{$getdataDetail->work_location}}</strong>
                                     </div>
                                 </li>
-                                
+
                                 <li>
                                     <div class="sidebar-icon-item"><i class="fi-rr-briefcase"></i></div>
                                     <div class="sidebar-text-info">

@@ -174,21 +174,7 @@
 
                 <!-- Filter -->
                 <div class="col-lg-3 col-md-12 col-sm-12 col-12">
-                    <div class="sidebar-with-bg">
-                        <h5 class="font-semibold mb-10">Set job reminder</h5>
-                        <p class="text-body-999">Enter you email address and get job notification.</p>
-                        <div class="box-email-reminder">
-                            <form>
-                                <div class="form-group mt-15">
-                                    <input type="text" class="form-control input-bg-white form-icons" placeholder="Enter email address" />
-                                    <i class="fi-rr-envelope"></i>
-                                </div>
-                                <div class="form-group mt-25 mb-5">
-                                    <button class="btn btn-default btn-md">Submit</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
+
                     <div class="sidebar-shadow none-shadow mb-30">
                         <h5 class="sidebar-title">Filters</h5>
                         <div class="sidebar-filters">
@@ -199,6 +185,14 @@
                                 <div class="form-group select-style select-style-icon">
                                     <select id="category" class="form-control form-icons select-active">
                                         <!-- Options will be loaded here via AJAX  -->
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="filter-block mb-30">
+                                <h5 class="medium-heading mb-15">Certificate type</h5>
+                                <div class="form-group select-style select-style-icon">
+                                    <select id="filterCertificatetype" class="form-control form-icons select-active">
+                                        <!-- Options will be loaded here via AJAX -->
                                     </select>
                                 </div>
                             </div>
@@ -262,7 +256,7 @@
     </section>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    
+
     <script>
 
         $(document).ready(function() {
@@ -294,6 +288,7 @@
             loadProvinsisLeft();
             loadStatusLeft();
             loadTypeLeft();
+            loadCertificatetypeLeft();
 
             loadCategoryTop();
             loadProvinsisTop();
@@ -334,6 +329,7 @@
                 console.log('Sort by selected:', currentSort); // Debugging line
                 const filters = {
                     category: $('#category').val(),
+                    cetificatetype: $('#filterCertificatetype').val(),
                         provinsi: $('#provinsiSelect').val(),
                         status: $('#statusSelect').val(),
                         type: $('#typeSelect').val(),
@@ -354,6 +350,7 @@
                 console.log('Pager number clicked, page:', page); // Debugging line
                 const filters = {
                     category: $('#category').val(),
+                    cetificatetype: $('#filterCertificatetype').val(),
                         provinsi: $('#provinsiSelect').val(),
                         status: $('#statusSelect').val(),
                         type: $('#typeSelect').val(),
@@ -375,6 +372,7 @@
                 if (page) {
                     const filters = {
                         category: $('#category').val(),
+                        cetificatetype: $('#filterCertificatetype').val(),
                         provinsi: $('#provinsiSelect').val(),
                         status: $('#statusSelect').val(),
                         type: $('#typeSelect').val(),
@@ -396,6 +394,7 @@
                 if (page) {
                     const filters = {
                         category: $('#category').val(),
+                        cetificatetype: $('#filterCertificatetype').val(),
                         provinsi: $('#provinsiSelect').val(),
                         status: $('#statusSelect').val(),
                         type: $('#typeSelect').val(),
@@ -413,6 +412,7 @@
             $('#applyFilterBtn').on('click', function() {
                 const filters = {
                     category: $('#category').val(),
+                    cetificatetype: $('#filterCertificatetype').val(),
                     provinsi: $('#provinsiSelect').val(),
                     status: $('#statusSelect').val(),
                     type: $('#typeSelect').val(),
@@ -431,6 +431,7 @@
                 const filters = {
                     trainingname: $('#filterTrainingname').val(),
                     category: $('#categoryTop').val(),
+                    cetificatetype: $('#filterCertificatetype').val(),
                     provinsi: $('#provinsiTop').val(),
                     status: $('#statusTop').val(),
                     type: $('#typeTop').val(),
@@ -445,12 +446,23 @@
                 $('#provinsiSelect').val('');
                 $('#category').val('');
                 $('#statusSelect').val('');
+                $('#filterCertificatetype').val('');
                 $('#typeSelect').val('');
                 $('#categoryTop').val(),
                 $('#provinsiTop').val(),
                 $('#statusTop').val(),
                 $('#typeTop').val(),
                 loadContent(1, {}, currentSort); // Fetch content without filters and current sort
+                loadCategoryLeft();
+                loadProvinsisLeft();
+                loadStatusLeft();
+                loadTypeLeft();
+                loadCertificatetypeLeft();
+
+                loadCategoryTop();
+                loadProvinsisTop();
+                loadStatusTop();
+                loadTypeTop();
             });
         });
 
@@ -475,7 +487,7 @@
                     // Loop through the data and create new option elements
                     $.each(data, function(index, item) {
                         $selectElement.append(
-                            $('<option></option>').val(item.nama).text(item.nama)
+                            $('<option></option>').val(item.id).text(item.nama)
                         );
                     });
                 },
@@ -510,6 +522,35 @@
                 },
                 error: function(xhr, status, error) {
                     console.error('Error fetching Provinsi:', error);
+                }
+            });
+        }
+
+        function loadCertificatetypeLeft() {
+            const url = 'load-dropdown-certificatetype'; // Ganti dengan URL endpoint Anda
+
+            $.ajax({
+                url: url,
+                type: 'GET',
+                dataType: 'json',
+                success: function(data) {
+                    const $selectElement = $('#filterCertificatetype');
+
+                    // Clear existing options
+                    $selectElement.empty();
+
+                    // Add a default option
+                    $selectElement.append('<option value="">Select Certificate</option>');
+
+                    // Loop through the data and create new option elements
+                    $.each(data, function(index, item) {
+                        $selectElement.append(
+                            $('<option></option>').val(item.id).text(item.nama)
+                        );
+                    });
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error fetching category:', error);
                 }
             });
         }

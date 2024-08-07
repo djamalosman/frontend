@@ -49,7 +49,9 @@
        max-width: 100%;
        height: auto;
    }
+
 </style>
+
         <section class="section-box">
             <div class="banner-hero hero-1">
                 <div class="banner-inner">
@@ -247,10 +249,10 @@
                     <div class="tab-content" id="myTabContent-1">
                         <div class="tab-pane fade show active" id="tab-one-1" role="tabpanel" aria-labelledby="tab-one-1">
                             <div class="row"  id="training-list">
-                                                                
+
                             </div>
                         </div>
-                        
+
                     </div>
                 </div>
             </div>
@@ -272,16 +274,16 @@
                     <div class="tab-content" id="myTabContent-1">
                         <div class="tab-pane fade show active" id="tab-one-1" role="tabpanel" aria-labelledby="tab-one-1">
                             <div class="row" id="jobs-list">
-                                
+
                             </div>
                         </div>
-                        
+
                     </div>
                 </div>
             </div>
         </section>
 
-      
+
         <section class="section-box mt-80 mt-md-50">
             <div class="container">
                 <div class="row align-items-end">
@@ -300,7 +302,7 @@
                                 @foreach($news as $item)
                                     <div class="swiper-slide">
                                         <div class="card-grid-3 hover-up">
-                                           
+
                                             <div class="text-center card-grid-3-image">
                                                 <a href="/detail-news/{{base64_encode($item->id)}}">
                                                     <div class="imgGrid-container">
@@ -309,7 +311,7 @@
                                                 </a>
                                             </div>
                                             <div class="card-block-info mt-10">
-                                                
+
                                                 <div class="row">
                                                     <div class="col-lg-6 col-6 text-start">
                                                         <span>{{$item->category}}</span>
@@ -317,7 +319,7 @@
                                                     <div class="col-lg-6 col-6 text-end">
                                                         <span><span class="card-time">{{ \Carbon\Carbon::parse($item->implementation_date)->format('d M Y') }}</span></span>
                                                     </div>
-                                                </div>  
+                                                </div>
                                                 <h5 class="mt-15 heading-md"><a href="/detail-news/{{base64_encode($item->id)}}">{{$item->title}}</a></h5>
                                             </div>
                                         </div>
@@ -379,10 +381,10 @@
                         $('#news-list').html(response);
                     }
                 });
-               
+
             });
-           
-            
+
+
         </script>
-        
+
 @endsection

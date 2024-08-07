@@ -57,14 +57,11 @@
     <section class="section-box">
         <div class="box-head-single">
             <div class="container">
-                <h3>{{$getdataDetail->traning_name}}</h3>
-                <ul class="breadcrumbs">
-                    <li><a href="#">Training</a></li>
-                    <li>{{$title}}</li>
-                </ul>
+                <h1><b>{{$getdataDetail->traning_name}}</b></h1>
             </div>
         </div>
     </section>
+
     <section class="section-box mt-50">
         <div class="container">
             <div class="row">
@@ -74,28 +71,28 @@
                             @foreach ($listfiles as $valFile)
                                 <div class="w3-display-container mySlides">
                                     <img  src="{{ asset('http://127.0.0.1:8081/storage/' . ($valFile->nama ?? '')) }}" style="width:100%" />
-                                        
+
                                 </div>
                             @endforeach
                         </div>
                     </div>
                     <div class="content-single">
-                        <h5>Training requirements</h5>
+                        <h1><b>Training requirements</b></h1>
                         <ul>
                             @foreach($listpersyaratan as $persyaratan)
-                                <li>  {{$persyaratan->nama}} </li>
+                                <li> <p> {{$persyaratan->nama}}</p> </li>
                             @endforeach
                         </ul>
-                        <h5>Training material</h5>
+                        <h1><b>Training material</b></h1>
                         <ul>
                             @foreach($listmateri as $materi)
-                                <li>  {{$materi->nama}} </li>
+                                <li> <p> {{$materi->nama}}</p> </li>
                             @endforeach
                         </ul>
-                        <h5>Facility</h5>
+                        <h1><b>Facility</b></h1>
                         <ul>
                             @foreach($listfasilitas as $fasilitas)
-                                <li>  {{$fasilitas->nama}} </li>
+                                <li> <p> {{$fasilitas->nama}}</p> </li>
                             @endforeach
                         </ul>
                     </div>
@@ -108,14 +105,14 @@
                 </div>
                 <div class="col-lg-4 col-md-12 col-sm-12 col-12 pl-40 pl-lg-15 mt-lg-30">
                     <div class="sidebar-shadow">
-                        
+
 
 
                         <div class="text-start mt-20">
                             <input type="text" hidden id="textToCopy" value="http://127.0.0.1:8000/detail-course/{{base64_encode($getdataDetail->id)}}" readonly>
                             <a href="{{$getdataDetail->link_pendaftaran}}" class="btn btn-default mr-10">Apply now</a>
                             <a href="#" class="btn btn-default mr-10" onclick="copyToClipboard(event)">Share</a>
-                            
+
                             <div id="popup" class="popup">
                                 <p>Tautan telah disalin</p>
                             </div>
@@ -191,21 +188,21 @@
             </div>
         </div>
     </section>
-   
+
 
     <script>
         var myIndex = 0;
         carousel();
-        
+
         function carousel() {
           var i;
           var x = document.getElementsByClassName("mySlides");
           for (i = 0; i < x.length; i++) {
-            x[i].style.display = "none";  
+            x[i].style.display = "none";
           }
           myIndex++;
-          if (myIndex > x.length) {myIndex = 1}    
-          x[myIndex-1].style.display = "block";  
+          if (myIndex > x.length) {myIndex = 1}
+          x[myIndex-1].style.display = "block";
           setTimeout(carousel, 2000); // Change image every 2 seconds
         }
         function copyToClipboard(event) {
@@ -238,22 +235,22 @@
     {{-- <script>
         var slideIndex = 1;
         showDivs(slideIndex);
-        
+
         function plusDivs(n) {
           showDivs(slideIndex += n);
         }
-        
+
         function showDivs(n) {
           var i;
           var x = document.getElementsByClassName("mySlides");
           if (n > x.length) {slideIndex = 1}
           if (n < 1) {slideIndex = x.length}
           for (i = 0; i < x.length; i++) {
-             x[i].style.display = "none";  
+             x[i].style.display = "none";
           }
-          x[slideIndex-1].style.display = "block";  
+          x[slideIndex-1].style.display = "block";
         }
     </script> --}}
-        
-        
+
+
 @endsection
